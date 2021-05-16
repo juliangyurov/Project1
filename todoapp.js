@@ -1,5 +1,5 @@
 //unprotected
-// stage = 0 - firstform, 1 - signupform, 2 - todolist
+// stage = 0 - firstform, 1 - signupform, 2 - loginform 3 - todoform
 let stage = 0;
 
 function changeStage()  {
