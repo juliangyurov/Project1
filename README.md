@@ -1,5 +1,5 @@
 # Project1
-Project #1 - assignment is to create a to-do list app out of HTML, CSS and Javascript
+assignment is to create a to-do list app out of HTML, CSS and Javascript
 
 
 Details:
