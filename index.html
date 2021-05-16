@@ -15,21 +15,87 @@
           <section>&nbsp;</section>
           
 
-          <div id="form">
+          <div id="first-form" style="display: block;" >
             <div>
-                <button type="button" class="button">Sign Up</button>
+                <button id="signup" type="button" class="button">Sign Up</button>
             </div>
-            
-            
-            <div>
-                <button type="button2" class="button">Log In</button>
+             <div>
+                <button id="login" type="button2" class="button">Log In</button>
             </div>
-            
           </div>
-          
-        </div>
-    </body>
-    
-    
 
+          <div id="signup-form" style="display: none;">
+            <form >
+                <h2 id="headerSignUp">Please complete all information below:</h2>
+                <br>
+
+                <label for="fname">First name:</label><br>              
+                <input type="text" id="fname" name="fname" size="30"><br><br>
+                
+                <label for="lname">Last name:</label><br>
+                <input type="text" id="lname" name="lname" size="30"><br><br>
+                
+                <label for="email">Email:</label><br>                              
+                <input type="text" id="email" name="email" size="30"><br><br>
+                
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" size="30"><br><br>
+
+                <input type="checkbox" id="agreement" name="agreement" value="ok">
+                <label for="agreement" style="font-size: small;"> I agree to the Terms of Use</label><br><br>
+                
+                <div>
+                    <button id="signupform" type="button" class="button">Sign Up</button>
+                </div>
+            </form>
+          </div>
+
+          <div id="login-form" style="display: none;">
+            <form >
+                <h2>Please complete all information below:</h2>
+                <br>
+                
+                <label for="email">Email:</label><br>                              
+                <input type="text" id="email" name="email" size="30"><br><br>
+                
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" size="30"><br><br>
+                
+                <div>
+                    <button id="loginform" type="button" class="button">Log In</button>
+                </div>
+            </form>
+          </div>
+
+          <div id="todo-form" style="display: none;">
+            <form >
+                <h2>Please complete add todo information below:</h2>
+                <br>
+
+                <label for="fname">First name:</label><br>              
+                <input type="text" id="fname" name="fname" size="30"><br><br>
+                
+                <label for="lname">Last name:</label><br>
+                <input type="text" id="lname" name="lname" size="30"><br><br>
+                
+                <label for="email">Email:</label><br>                              
+                <input type="text" id="email" name="email" size="30"><br><br>
+                
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" size="30"><br><br>
+
+                <input type="checkbox" id="agreement" name="agreement" value="ok">
+                <label for="agreement" style="font-size: small;"> I agree to the Terms of Use</label><br><br>
+                
+                <div>
+                    <button type="button" class="button">Sign Up</button>
+                </div>
+
+            </form>
+
+          </div>
+
+        </div>
+        <script src="todoapp.js"></script>
+    </body>
 </html>
