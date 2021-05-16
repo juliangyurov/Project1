@@ -30,6 +30,16 @@ h2 {
     font-family: 'Courier New', Courier, monospace;
     font-weight: lighter;
 }
+.button:hover {
+  background-color:#86b300;
+  border: 2px solid #ffff80;
+  color: white;
+}
+
+label {
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+}
 
 .button2 {background-color: #008CBA;} /* Blue */
 .button3 {background-color: #f44336;} /* Red */ 
