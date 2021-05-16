@@ -1,4 +1,4 @@
-# Project1
+# Project1 - assignment is to create a to-do list app out of HTML, CSS and Javascript
 Project #1
 
 
