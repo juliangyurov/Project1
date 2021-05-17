@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Create Object from JSON String</h2>
+
+<p id="demo"></p>
+
+<script>
+var text = '{"employees":[' +
+'{"firstName":"John","lastName":"Doe" },' +
+'{"firstName":"Anna","lastName":"Smith" },' +
+'{"firstName":"Peter","lastName":"Jones" }]}';
+
+var accounts = { "accounts": [
+                            {"firstName":"John",
+                            "lastName":"Doe",
+                            "email":"john.d@example.org",
+                            "password":"1234567890ABCD" , 
+                            "todolists" : [ 
+                                        { "listname" : "grocerylist", "list": [ 
+                                                                                {"item": "Bakery and Bread"},
+                                                                                {"item": "Meat and Seafood"},
+                                                                                {"item": "Pasta and Rice"},
+                                                                                {"item": "Dairy, Cheese, and Eggs"},
+                                                                                ] ,   },
+                                        { "listname" : "apparellist", "list": [ 
+                                                                                {"item": "sweater"},
+                                                                                {"item": "jacket"},
+                                                                                {"item": "jeans"},
+                                                                                {"item": "socks"},
+                                                                                ]  ,   },                                                                                
+                                         ]},
+
+
+                            { "firstName":"Anna",
+                            "lastName":"Smith",
+                            "email":"john.d@example.org",
+                            "password":"1234567890ABCD" , 
+                            "todolists" : [ 
+                                        { "listname" : "grocerylist", "list": [ 
+                                                                                {"item": "Bakery and Bread"},
+                                                                                {"item": "Meat and Seafood"},
+                                                                                {"item": "Pasta and Rice"},
+                                                                                {"item": "Dairy, Cheese, and Eggs"},
+                                                                                ] ,   },
+                                        { "listname" : "apparellist", "list": [ 
+                                                                                {"item": "sweater"},
+                                                                                {"item": "jacket"},
+                                                                                {"item": "jeans"},
+                                                                                {"item": "socks"},
+                                                                                ]  ,   },                                                                                
+                                         ]},
+                        
+                        
+                            {"firstName":"Peter",
+                            "lastName":"Jones",
+                            "email":"john.d@example.org",
+                            "password":"1234567890ABCD" , 
+                            "todolists" : [ 
+                                        { "listname" : "grocerylist", "list": [ 
+                                                                                {"item": "Bakery and Bread"},
+                                                                                {"item": "Meat and Seafood"},
+                                                                                {"item": "Pasta and Rice"},
+                                                                                {"item": "Dairy, Cheese, and Eggs"},
+                                                                                ] ,   },
+                                        { "listname" : "apparellist", "list": [ 
+                                                                                {"item": "sweater"},
+                                                                                {"item": "jacket"},
+                                                                                {"item": "jeans"},
+                                                                                {"item": "socks"},
+                                                                                ]  ,   },                                                                                
+                                         ]},
+                            ] };
+
+obj = JSON.parse(text);
+document.getElementById("demo").innerHTML =
+obj.employees[0].firstName + " " + obj.employees[0].lastName +"; "+obj.employees[1].firstName + " " + obj.employees[1].lastName+ "; " + obj.employees[2].firstName + " " + obj.employees[2].lastName;
+</script>
+
+</body>
+</html>
