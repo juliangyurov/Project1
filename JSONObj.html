@@ -12,70 +12,77 @@ var text = '{"employees":[' +
 '{"firstName":"Anna","lastName":"Smith" },' +
 '{"firstName":"Peter","lastName":"Jones" }]}';
 
-var accounts = { "accounts": [
+var objs = { "accounts": [
                             {"firstName":"John",
                             "lastName":"Doe",
                             "email":"john.d@example.org",
                             "password":"1234567890ABCD" , 
-                            "todolists" : [ 
-                                        { "listname" : "grocerylist", "list": [ 
-                                                                                {"item": "Bakery and Bread"},
-                                                                                {"item": "Meat and Seafood"},
-                                                                                {"item": "Pasta and Rice"},
-                                                                                {"item": "Dairy, Cheese, and Eggs"},
-                                                                                ] ,   },
-                                        { "listname" : "apparellist", "list": [ 
-                                                                                {"item": "sweater"},
-                                                                                {"item": "jacket"},
-                                                                                {"item": "jeans"},
-                                                                                {"item": "socks"},
-                                                                                ]  ,   },                                                                                
-                                         ]},
+                            "todolists":[ 
+                                            { "listname" : "grocerylist", "items":   [ 
+                                                                                {"el": "Bakery and Bread"},
+                                                                                {"el": "Meat and Seafood"},
+                                                                                {"el": "Pasta and Rice"},
+                                                                                {"el": "Dairy, Cheese, and Eggs"},
+                                                                                    ] ,   
+                                            },
+
+                                            { "listname" : "apparellist", "items":   [ 
+                                                                                {"el": "sweater"},
+                                                                                {"el": "jacket"},
+                                                                                {"el": "jeans"},
+                                                                                {"el": "socks"},
+                                                                                    ]  ,   
+                                            },                                                                                
+                                        ] ,
+                            },
 
 
                             { "firstName":"Anna",
                             "lastName":"Smith",
-                            "email":"john.d@example.org",
+                            "email":"anna.s@example.org",
                             "password":"1234567890ABCD" , 
                             "todolists" : [ 
-                                        { "listname" : "grocerylist", "list": [ 
-                                                                                {"item": "Bakery and Bread"},
-                                                                                {"item": "Meat and Seafood"},
-                                                                                {"item": "Pasta and Rice"},
-                                                                                {"item": "Dairy, Cheese, and Eggs"},
+                                        { "listname" : "activitylist", "items": [ 
+                                                                                {"el": "Hit the gym"},
+                                                                                {"el": "Pay bills"},
+                                                                                {"el": "Meet George"},
+                                                                                {"el": "Organize office"},
                                                                                 ] ,   },
-                                        { "listname" : "apparellist", "list": [ 
-                                                                                {"item": "sweater"},
-                                                                                {"item": "jacket"},
-                                                                                {"item": "jeans"},
-                                                                                {"item": "socks"},
+                                        { "listname" : "stopdoinglist", "items": [ 
+                                                                                {"el": "overbooking myself"},
+                                                                                {"el": "criticizing and judging myself"},
+                                                                                {"el": "participating in drama"},
+                                                                                {"el": "expecting too much of myself"},
                                                                                 ]  ,   },                                                                                
                                          ]},
                         
                         
                             {"firstName":"Peter",
                             "lastName":"Jones",
-                            "email":"john.d@example.org",
+                            "email":"peter.j@example.org",
                             "password":"1234567890ABCD" , 
                             "todolists" : [ 
-                                        { "listname" : "grocerylist", "list": [ 
-                                                                                {"item": "Bakery and Bread"},
-                                                                                {"item": "Meat and Seafood"},
-                                                                                {"item": "Pasta and Rice"},
-                                                                                {"item": "Dairy, Cheese, and Eggs"},
+                                        { "listname" : "stopdoinglist", "items": [ 
+                                                                                {"el": "waiting for permission"},
+                                                                                {"el": "seeking approval"},
+                                                                                {"el": "avoiding the truth"},
+                                                                                {"el": "rescuing other people"},
                                                                                 ] ,   },
-                                        { "listname" : "apparellist", "list": [ 
-                                                                                {"item": "sweater"},
-                                                                                {"item": "jacket"},
-                                                                                {"item": "jeans"},
-                                                                                {"item": "socks"},
+                                        { "listname" : "developerlist", "items": [ 
+                                                                                {"el": "develop a new feature"},
+                                                                                {"el": "analyze the survay results"},
+                                                                                {"el": "publish an article on google"},
+                                                                                {"el": "learn to use sketch"},
                                                                                 ]  ,   },                                                                                
                                          ]},
                             ] };
 
-obj = JSON.parse(text);
+//obj = JSON.parse(text);
+
+
 document.getElementById("demo").innerHTML =
-obj.employees[0].firstName + " " + obj.employees[0].lastName +"; "+obj.employees[1].firstName + " " + obj.employees[1].lastName+ "; " + obj.employees[2].firstName + " " + obj.employees[2].lastName;
+//obj.employees[0].firstName + " " + obj.employees[0].lastName +"; "+obj.employees[1].firstName + " " + obj.employees[1].lastName+ "; " + obj.employees[2].firstName + " " + obj.employees[2].lastName;
+objs.accounts[1].firstName + " " + objs.accounts[1].lastName +"; "+objs.accounts[1].todolists[1].items[3].el;
 </script>
 
 </body>
