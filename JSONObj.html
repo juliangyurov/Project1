@@ -3,10 +3,15 @@
 <body>
 
 <h2>Create Object from JSON String</h2>
+<div id = "startid">
+    <p id="user"></p>
+    <p id="listname"></p>
 
-<p id="demo"></p>
+    <!-- here list items will be added programaticaly-->
+</div>
 
 <script>
+    var fname,lname,checked,listname;
 var text = '{"employees":[' +
 '{"firstName":"John","lastName":"Doe" },' +
 '{"firstName":"Anna","lastName":"Smith" },' +
@@ -43,16 +48,16 @@ var objs = { "accounts": [
                             "password":"1234567890ABCD" , 
                             "todolists" : [ 
                                         { "listname" : "activitylist", "items": [ 
-                                                                                {"el": "Hit the gym"},
-                                                                                {"el": "Pay bills"},
-                                                                                {"el": "Meet George"},
-                                                                                {"el": "Organize office"},
+                                                                                {"el": "Hit the gym", "checked":false, },
+                                                                                {"el": "Pay bills", "checked":false, },
+                                                                                {"el": "Meet George", "checked":false, },
+                                                                                {"el": "Organize office", "checked":false, },
                                                                                 ] ,   },
                                         { "listname" : "stopdoinglist", "items": [ 
-                                                                                {"el": "overbooking myself"},
-                                                                                {"el": "criticizing and judging myself"},
-                                                                                {"el": "participating in drama"},
-                                                                                {"el": "expecting too much of myself"},
+                                                                                {"el": "overbooking myself", "checked":false, },
+                                                                                {"el": "criticizing and judging myself", "checked":false, },
+                                                                                {"el": "participating in drama", "checked":false, },
+                                                                                {"el": "expecting too much of myself", "checked":false, },
                                                                                 ]  ,   },                                                                                
                                          ]},
                         
@@ -63,26 +68,56 @@ var objs = { "accounts": [
                             "password":"1234567890ABCD" , 
                             "todolists" : [ 
                                         { "listname" : "stopdoinglist", "items": [ 
-                                                                                {"el": "waiting for permission"},
-                                                                                {"el": "seeking approval"},
-                                                                                {"el": "avoiding the truth"},
-                                                                                {"el": "rescuing other people"},
+                                                                                {"el": "waiting for permission", "checked":false, },
+                                                                                {"el": "seeking approval", "checked":false, },
+                                                                                {"el": "avoiding the truth", "checked":false, },
+                                                                                {"el": "rescuing other people", "checked":false, },
                                                                                 ] ,   },
                                         { "listname" : "developerlist", "items": [ 
-                                                                                {"el": "develop a new feature"},
-                                                                                {"el": "analyze the survay results"},
-                                                                                {"el": "publish an article on google"},
-                                                                                {"el": "learn to use sketch"},
+                                                                                {"el": "develop a new feature", "checked":false, },
+                                                                                {"el": "analyze the survay results", "checked":false, },
+                                                                                {"el": "publish an article on google", "checked":false, },
+                                                                                {"el": "learn to use sketch", "checked":false, },
                                                                                 ]  ,   },                                                                                
                                          ]},
                             ] };
 
 //obj = JSON.parse(text);
 
+fname = objs.accounts[1].firstName;
+lname =  objs.accounts[1].lastName;
+listname = objs.accounts[1].todolists[1].listname;
+//item = objs.accounts[1].todolists[1].items[3];
+//checked = (item.checked)?"status: done":"status: pending";
+document.getElementById("user").innerHTML = fname + " " + lname ;
+document.getElementById("listname").innerHTML = listname ;
 
-document.getElementById("demo").innerHTML =
-//obj.employees[0].firstName + " " + obj.employees[0].lastName +"; "+obj.employees[1].firstName + " " + obj.employees[1].lastName+ "; " + obj.employees[2].firstName + " " + obj.employees[2].lastName;
-objs.accounts[1].firstName + " " + objs.accounts[1].lastName +"; "+objs.accounts[1].todolists[1].items[3].el;
+for(var i=0; i < objs.accounts[1].todolists[1].items.length ; i++ ){
+    var item = objs.accounts[1].todolists[1].items[i];
+    var checked = (item.checked)?"status: done":"status: pending";
+    //document.getElementById("element"+i).innerHTML =  item.el + "; " + checked;
+
+    // add p html element
+    var tag = document.createElement("p");
+    var text = document.createTextNode((i+1) + ". " + item.el + "; " + checked);
+    tag.appendChild(text);
+    var pelement = document.getElementById("startid");
+    pelement.appendChild(tag);
+};
+
+function getUserByEmail(email){
+    for(var i = 0; i < objs.accounts.length; i++){
+        if(email === objs.accounts[i].email){
+            return i;
+        };
+    };
+    return undefined;
+
+};
+
+console.log("For " + "john.d@example.org infex = " + getUserByEmail("john.d@example.org"));
+console.log("For " + "peter.j@example.org infex = " + getUserByEmail("peter.j@example.org"));
+
 </script>
 
 </body>
