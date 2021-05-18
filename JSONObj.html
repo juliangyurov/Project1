@@ -17,72 +17,73 @@ var text = '{"employees":[' +
 '{"firstName":"Anna","lastName":"Smith" },' +
 '{"firstName":"Peter","lastName":"Jones" }]}';
 
-var objs = { "accounts": [
-                            {"firstName":"John",
-                            "lastName":"Doe",
-                            "email":"john.d@example.org",
-                            "password":"1234567890ABCD" , 
-                            "todolists":[ 
-                                            { "listname" : "grocerylist", "items":   [ 
-                                                                                {"el": "Bakery and Bread"},
-                                                                                {"el": "Meat and Seafood"},
-                                                                                {"el": "Pasta and Rice"},
-                                                                                {"el": "Dairy, Cheese, and Eggs"},
-                                                                                    ] ,   
-                                            },
+var text = '{ "accounts": ['+
+                            '{"firstName":"John",'+
+                            '"lastName":"Doe",'+
+                            '"email":"john.d@example.org",'+
+                            '"password":"1234567890ABCD" ,'+ 
+                            '"todolists":['+ 
+                                            '{ "listname" : "grocerylist", "items":   ['+ 
+                                                                                '{"el": "Bakery and Bread", "checked":false},'+
+                                                                                '{"el": "Meat and Seafood", "checked":false},'+
+                                                                                '{"el": "Pasta and Rice", "checked":false},'+
+                                                                                '{"el": "Dairy, Cheese, and Eggs", "checked":false}'+
+                                                                                   ' ] '+   
+                                            '},'+
 
-                                            { "listname" : "apparellist", "items":   [ 
-                                                                                {"el": "sweater"},
-                                                                                {"el": "jacket"},
-                                                                                {"el": "jeans"},
-                                                                                {"el": "socks"},
-                                                                                    ]  ,   
-                                            },                                                                                
-                                        ] ,
-                            },
+                                            '{ "listname" : "apparellist", "items":   ['+ 
+                                                                                '{"el": "sweater", "checked":false},'+
+                                                                                '{"el": "jacket", "checked":false},'+
+                                                                                '{"el": "jeans", "checked":false},'+
+                                                                                '{"el": "socks", "checked":false}'+
+                                                                                    ']  '+   
+                                            '}'+                                                                                
+                                        '] '+
+                            '},'+
 
 
-                            { "firstName":"Anna",
-                            "lastName":"Smith",
-                            "email":"anna.s@example.org",
-                            "password":"1234567890ABCD" , 
-                            "todolists" : [ 
-                                        { "listname" : "activitylist", "items": [ 
-                                                                                {"el": "Hit the gym", "checked":false, },
-                                                                                {"el": "Pay bills", "checked":false, },
-                                                                                {"el": "Meet George", "checked":false, },
-                                                                                {"el": "Organize office", "checked":false, },
-                                                                                ] ,   },
-                                        { "listname" : "stopdoinglist", "items": [ 
-                                                                                {"el": "overbooking myself", "checked":false, },
-                                                                                {"el": "criticizing and judging myself", "checked":false, },
-                                                                                {"el": "participating in drama", "checked":false, },
-                                                                                {"el": "expecting too much of myself", "checked":false, },
-                                                                                ]  ,   },                                                                                
-                                         ]},
+                            '{ "firstName":"Anna",'+
+                            '"lastName":"Smith",'+
+                            '"email":"anna.s@example.org",'+
+                            '"password":"1234567890ABCD" ,'+ 
+                            '"todolists" : ['+ 
+                                        '{ "listname" : "activitylist", "items": ['+ 
+                                                                                '{"el": "Hit the gym", "checked":false },'+
+                                                                                '{"el": "Pay bills", "checked":false },'+
+                                                                                '{"el": "Meet George", "checked":false },'+
+                                                                                '{"el": "Organize office", "checked":false }'+
+                                                                                ']    },'+
+                                        '{ "listname" : "stopdoinglist", "items": ['+ 
+                                                                                '{"el": "overbooking myself", "checked":false },'+
+                                                                                '{"el": "criticizing and judging myself", "checked":false },'+
+                                                                                '{"el": "participating in drama", "checked":false },'+
+                                                                                '{"el": "expecting too much of myself", "checked":false }'+
+                                                                                ']     }'+                                                                                
+                                         ']},'+
                         
                         
-                            {"firstName":"Peter",
-                            "lastName":"Jones",
-                            "email":"peter.j@example.org",
-                            "password":"1234567890ABCD" , 
-                            "todolists" : [ 
-                                        { "listname" : "stopdoinglist", "items": [ 
-                                                                                {"el": "waiting for permission", "checked":false, },
-                                                                                {"el": "seeking approval", "checked":false, },
-                                                                                {"el": "avoiding the truth", "checked":false, },
-                                                                                {"el": "rescuing other people", "checked":false, },
-                                                                                ] ,   },
-                                        { "listname" : "developerlist", "items": [ 
-                                                                                {"el": "develop a new feature", "checked":false, },
-                                                                                {"el": "analyze the survay results", "checked":false, },
-                                                                                {"el": "publish an article on google", "checked":false, },
-                                                                                {"el": "learn to use sketch", "checked":false, },
-                                                                                ]  ,   },                                                                                
-                                         ]},
-                            ] };
+                            '{"firstName":"Peter",'+
+                            '"lastName":"Jones",'+
+                            '"email":"peter.j@example.org",'+
+                            '"password":"1234567890ABCD" ,'+ 
+                            '"todolists" : ['+ 
+                                        '{ "listname" : "stopdoinglist", "items": ['+ 
+                                                                                '{"el": "waiting for permission", "checked":false },'+
+                                                                                '{"el": "seeking approval", "checked":false },'+
+                                                                                '{"el": "avoiding the truth", "checked":false },'+
+                                                                                '{"el": "rescuing other people", "checked":false }'+
+                                                                                ']    },'+
+                                        '{ "listname" : "developerlist", "items": ['+ 
+                                                                                '{"el": "develop a new feature", "checked":false },'+
+                                                                                '{"el": "analyze the survay results", "checked":false },'+
+                                                                                '{"el": "publish an article on google", "checked":false },'+
+                                                                                '{"el": "learn to use sketch", "checked":false }'+
+                                                                                ']     }'+                                                                                
+                                         ']}'+
+                            '] }';
 
-//obj = JSON.parse(text);
+objs = JSON.parse(text);
+console.log(objs);
 
 fname = objs.accounts[1].firstName;
 lname =  objs.accounts[1].lastName;
@@ -111,12 +112,36 @@ function getUserByEmail(email){
             return i;
         };
     };
-    return undefined;
+    return -1;
 
 };
 
+function getListsByUser(user){
+    var listnames = [];
+    for(var i = 0; i < objs.accounts[user].todolists.length; i++){
+        listnames.push(objs.accounts[user].todolists[i].listname) ;
+    };
+    return listnames;
+
+};
+
+function getListByUserListIx(user,listIx){
+    return objs.accounts[user].todolists[listIx].items;
+
+};
+
+
+console.log("For " + "yg.atanasoff@gmail.com infex = " + getUserByEmail("yg.atanasoff@gmail.com"));
+
 console.log("For " + "john.d@example.org infex = " + getUserByEmail("john.d@example.org"));
+console.log("Listnames: " + getListsByUser(getUserByEmail("john.d@example.org")));
+console.log(getListByUserListIx(getUserByEmail("john.d@example.org"),0));
+
+console.log("For " + "anna.s@example.org infex = " + getUserByEmail("anna.s@example.org"));
+console.log("Listnames: " + getListsByUser(getUserByEmail("anna.s@example.org")));
+
 console.log("For " + "peter.j@example.org infex = " + getUserByEmail("peter.j@example.org"));
+console.log("Listnames: " + getListsByUser(getUserByEmail("peter.j@example.org")));
 
 </script>
 
