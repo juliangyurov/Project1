@@ -130,18 +130,58 @@ function getListByUserListIx(user,listIx){
 
 };
 
+function addUser(fname,lname,email,password){
+    // Check if user already created
+    if(getUser(email) !== -1) {
+        return -1;
+    };
+    const objUser = {
+                        "firstName": fname ,
+                        "lastName": lname ,
+                        "password": password ,
+                        "todolists": [] 
+                    };
+    try{
+        localStorage.setItem(email,JSON.stringify(objUser));
+    }catch(e){
+        console.error(e);
+    };
+    
+};
 
-console.log("For " + "yg.atanasoff@gmail.com infex = " + getUserByEmail("yg.atanasoff@gmail.com"));
+function getUser(email){
+    try{
+        var objUser = localStorage.getItem(email);
+        if(objUser === null){
+            return -1;
+        };
+        objUser = JSON.parse(objUser);
+        return objUser;
+    }catch(e){
+        console.error(e);
+    };
+};
 
-console.log("For " + "john.d@example.org infex = " + getUserByEmail("john.d@example.org"));
-console.log("Listnames: " + getListsByUser(getUserByEmail("john.d@example.org")));
-console.log(getListByUserListIx(getUserByEmail("john.d@example.org"),0));
+console.log("Add user: " + "john.d@example.org ");
+addUser("John","Doe","john.d@example.org","johnd1234567890ABCD");
+console.log(getUser("johnd@example.org"));
 
-console.log("For " + "anna.s@example.org infex = " + getUserByEmail("anna.s@example.org"));
-console.log("Listnames: " + getListsByUser(getUserByEmail("anna.s@example.org")));
 
-console.log("For " + "peter.j@example.org infex = " + getUserByEmail("peter.j@example.org"));
-console.log("Listnames: " + getListsByUser(getUserByEmail("peter.j@example.org")));
+
+
+
+// console.log("For " + "yg.atanasoff@gmail.com infex = " + getUserByEmail("yg.atanasoff@gmail.com"));
+
+// console.log("For " + "john.d@example.org infex = " + getUserByEmail("john.d@example.org"));
+// console.log("Listnames: " + getListsByUser(getUserByEmail("john.d@example.org")));
+// console.log(getListByUserListIx(getUserByEmail("john.d@example.org"),0));
+
+// console.log("For " + "anna.s@example.org infex = " + getUserByEmail("anna.s@example.org"));
+// console.log("Listnames: " + getListsByUser(getUserByEmail("anna.s@example.org")));
+
+// console.log("For " + "peter.j@example.org infex = " + getUserByEmail("peter.j@example.org"));
+// console.log("Listnames: " + getListsByUser(getUserByEmail("peter.j@example.org")));
+
 
 </script>
 
