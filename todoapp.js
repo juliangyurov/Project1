@@ -102,6 +102,38 @@ function changeStage()  {
     };
 
 
+function addUser(fname,lname,email,password){
+    // Check if user already created
+    if(getUser(email) !== -1) {
+        return -1;
+    };
+    const objUser = {
+                        "firstName": fname ,
+                        "lastName": lname ,
+                        "password": password ,
+                        "todolists": [] 
+                    };
+    try{
+        localStorage.setItem(email,JSON.stringify(objUser));
+    }catch(e){
+        console.error(e);
+    };
+    
+};
+
+function getUser(email){
+    try{
+        var objUser = localStorage.getItem(email);
+        if(objUser === null){
+            return -1;
+        };
+        objUser = JSON.parse(objUser);
+        return objUser;
+    }catch(e){
+        console.error(e);
+    };
+};
+
 
 // init
 let firstForm = document.getElementById("first-form" );
