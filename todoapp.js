@@ -1,5 +1,5 @@
 //unprotected
-// stage = 0 - firstform, 1 - signupform, 2 - loginform 3 - todoform
+// stage = 0 - firstform, 1 - signupform, 2 - loginform, 3 - dashboard, 4 - todolist
 let stage = 0;
 
 function changeStage()  {
@@ -8,30 +8,42 @@ function changeStage()  {
             firstForm.style.display="block";
             signUpForm.style.display="none";
             logInForm.style.display="none";
+            dashboardForm.style.display="none";
             toDoForm.style.display="none";
             break;
         case 1:
             firstForm.style.display="none";
             signUpForm.style.display="block";
             logInForm.style.display="none";
+            dashboardForm.style.display="none";
             toDoForm.style.display="none";
             break;
         case 2:
             firstForm.style.display="none";
             signUpForm.style.display="none";
             logInForm.style.display="block";
+            dashboardForm.style.display="none";
             toDoForm.style.display="none";
             break;            
         case 3:
             firstForm.style.display="none";
             signUpForm.style.display="none";
             logInForm.style.display="none";
-            toDoForm.style.display="block";
+            dashboardForm.style.display="block";
+            toDoForm.style.display="none";
             break;
+        case 4:
+            firstForm.style.display="none";
+            signUpForm.style.display="none";
+            logInForm.style.display="none";
+            dashboardForm.style.display="none";
+            toDoForm.style.display="block";
+            break;            
         default:
             firstForm.style.display="block";
             signUpForm.style.display="none";
             logInForm.style.display="none";
+            dashboardForm.style.display="none";
             toDoForm.style.display="none";        
     }
     console.log("stage=" + stage);
@@ -66,6 +78,7 @@ function changeStage()  {
         let semicolon = "";
 
         header.innerText = "Please complete all information below:";
+        header.style.color = "white";
 
         if(fname.value.length === 0 || lname.value.length === 0){
             header.innerText+=" missing First or Last name";
@@ -74,6 +87,11 @@ function changeStage()  {
         if(!validEmail(email.value)){
             semicolon = (errCnt>0)? "; " : " ";
             header.innerText+=semicolon +"Email not valid";
+            errCnt++;
+        };
+        if(getUser(email.value) !== -1){
+            semicolon = (errCnt>0)? "; " : " ";
+            header.innerText+=semicolon +"Email already exists";
             errCnt++;
         };
         if(password.value.length === 0 ){
@@ -88,15 +106,25 @@ function changeStage()  {
         };
         
         if(errCnt>0){
+            header.style.color = "red";
             return;
         };
+        
+        // No errors - then add user to localStorage
+        addUser(fname.value,lname.value,email.value,password.value);
+        console.log(getUser(email.value));
 
-        stage = 2;
+        // go to dashboard - todo lists
+        stage = 3;
         changeStage();
     };
     
     function logInFormClicked(){
-        // 1-check log in info 2- go to todo form
+        // 1-check log in info 2- go to dashboard - todo lists form
+
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+
         stage = 3;
         changeStage();
     };
@@ -139,6 +167,7 @@ function getUser(email){
 let firstForm = document.getElementById("first-form" );
 let signUpForm = document.getElementById("signup-form" );
 let logInForm = document.getElementById("login-form" );
+let dashboardForm = document.getElementById("dashboard-form" );
 let toDoForm = document.getElementById("todo-form" );
 
 let buttonSignUp = document.getElementById("signup");
@@ -151,6 +180,13 @@ buttonSignUp.addEventListener("click",signUpClicked);
 buttonLogIn.addEventListener("click",logInClicked);
 buttonSignUpForm.addEventListener("click",signUpFormClicked);
 buttonLogInForm.addEventListener("click",logInFormClicked);
+
+// check localStorage entries
+console.log(getUser("emarinova@gmail.com"));
+console.log(getUser("julian.gyuroff@gmail.com"));
+console.log(getUser("john.d@example.org"));
+console.log(getUser("anna.s@example.org"));
+console.log(getUser("peter.j@example.org"));
 
 
 
