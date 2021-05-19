@@ -55,17 +55,45 @@
                 <h2>Please complete all information below:</h2>
                 <br>
                 
-                <label for="email">Email:</label><br>                              
-                <input type="text" id="email" name="email" size="30"><br><br>
+                <label for="email1">Email:</label><br>                              
+                <input type="text" id="email1" name="email1" size="30"><br><br>
                 
-                <label for="password">Password:</label><br>
-                <input type="password" id="password" name="password" size="30"><br><br>
+                <label for="password1">Password:</label><br>
+                <input type="password" id="password1" name="password1" size="30"><br><br>
                 
                 <div>
                     <button id="loginform" type="button" class="button">Log In</button>
                 </div>
             </form>
           </div>
+
+          <div id="dashboard-form" style="display: none;">
+            <form >
+                <h2>Please complete add/edit list information below:</h2>
+                <br>
+
+                <label for="fname">First name:</label><br>              
+                <input type="text" id="fname" name="fname" size="30"><br><br>
+                
+                <label for="lname">Last name:</label><br>
+                <input type="text" id="lname" name="lname" size="30"><br><br>
+                
+                <label for="email">Email:</label><br>                              
+                <input type="text" id="email" name="email" size="30"><br><br>
+                
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" size="30"><br><br>
+
+                <input type="checkbox" id="agreement" name="agreement" value="ok">
+                <label for="agreement" style="font-size: small;"> I agree to the Terms of Use</label><br><br>
+                
+                <div>
+                    <button id = "dashboardform" type="button" class="button">Add List</button>
+                </div>
+
+            </form>
+
+          </div>          
 
           <div id="todo-form" style="display: none;">
             <form >
@@ -88,7 +116,7 @@
                 <label for="agreement" style="font-size: small;"> I agree to the Terms of Use</label><br><br>
                 
                 <div>
-                    <button type="button" class="button">Sign Up</button>
+                    <button id="todoform" type="button" class="button">Add Item</button>
                 </div>
 
             </form>
