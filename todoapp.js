@@ -122,8 +122,44 @@ function changeStage()  {
     function logInFormClicked(){
         // 1-check log in info 2- go to dashboard - todo lists form
 
-        const email = document.getElementById("email");
-        const password = document.getElementById("password");
+        const email1 = document.getElementById("email1");
+        const password1 = document.getElementById("password1");
+        const header1 = document.getElementById("headerLogin");
+
+        let errCnt = 0;
+        let semicolon = "";
+
+        header1.innerText = "Please complete all information below:";
+        header1.style.color = "white";
+
+        // Answers should not be so detailed in real application !!!
+        // Answers should be ambiguous !!!
+        
+        if(!validEmail(email1.value)){
+            semicolon = (errCnt>0)? "; " : " ";
+            header1.innerText+=semicolon +"Email not valid";
+            errCnt++;
+        }else if(getUser(email1.value) === -1){
+            semicolon = (errCnt>0)? "; " : " ";
+            header1.innerText+=semicolon +"Email not found";
+            errCnt++;
+        }; 
+        if(password1.value.length === 0 ){
+            semicolon = (errCnt>0)? "; " : " ";
+            header1.innerText+=semicolon +"Password missing";
+            errCnt++;
+        }else if(password1.value !== getPassword(email1.value) && errCnt === 0){
+            semicolon = (errCnt>0)? "; " : " ";
+            header1.innerText+=semicolon +"Password does not match";
+            errCnt++;
+        };
+        
+        if(errCnt>0){
+            header1.style.color = "red";
+            return;
+        }; 
+        
+        // No errors - proceed to dashboard
 
         stage = 3;
         changeStage();
@@ -162,6 +198,14 @@ function getUser(email){
     };
 };
 
+function getPassword(email){
+    var objUser1 = getUser(email);
+    if(objUser1 === -1) {
+        return; //return undefined
+    };
+    return objUser1.password;
+};
+
 
 // init
 let firstForm = document.getElementById("first-form" );
@@ -187,6 +231,4 @@ console.log(getUser("julian.gyuroff@gmail.com"));
 console.log(getUser("john.d@example.org"));
 console.log(getUser("anna.s@example.org"));
 console.log(getUser("peter.j@example.org"));
-
-
 
