@@ -66,7 +66,7 @@ function changeStage()  {
     };
 
     function signUpFormClicked(){
-        // 1-check sign up data 2-record data 3-go to login form
+        // 1-check sign up data 2-record data 3-go to dashboard form
         const checkBox = document.getElementById("agreement");
         const header = document.getElementById("headerSignUp");
         const email = document.getElementById("email");
@@ -117,10 +117,14 @@ function changeStage()  {
         // go to dashboard - todo lists
         stage = 3;
         changeStage();
+ 
+        // Testing
+        console.log("Email: "+ email.value);
+        console.log(getUserLists(email.value));       
     };
     
     function logInFormClicked(){
-        // 1-check log in info 2- go to dashboard - todo lists form
+        // 1st-check log in info 2nd- go to dashboard - todo lists form
 
         const email1 = document.getElementById("email1");
         const password1 = document.getElementById("password1");
@@ -159,10 +163,14 @@ function changeStage()  {
             return;
         }; 
         
-        // No errors - proceed to dashboard
+        // No errors - proceed to dashboard (todo lists)
 
         stage = 3;
         changeStage();
+
+        // Testing
+        console.log("Email: "+ email1.value);
+        console.log(getUserLists(email1.value));
     };
 
 
@@ -206,6 +214,91 @@ function getPassword(email){
     return objUser1.password;
 };
 
+function getUserLists(email){
+    try{
+        var objUser = localStorage.getItem(email);
+        if(objUser === null){
+            return -1;
+        };
+        objUser = JSON.parse(objUser);
+        return objUser.todolists
+    }catch(e){
+        console.error(e);
+    };
+};
+
+function addUserList(email,list){
+    try{
+        var objUser = localStorage.getItem(email);
+        if(objUser === null){
+            return -1;
+        };
+        objUser = JSON.parse(objUser);
+        objUser.todolists.push(list);
+        console.log(objUser); 
+    }catch(e){
+        console.error(e);
+    };
+};
+
+// DASHBOARD functions
+
+// Create a "close" button and append it to each list item
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
+// Click on a close button to hide the current list item
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+
+// Add a "checked" symbol when clicking on a list item
+var list = document.querySelector('ul');
+list.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+  }
+}, false);
+
+// Create a new list item when clicking on the "Add" button
+function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("myUL").appendChild(li);
+  }
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+}
+
 
 // init
 let firstForm = document.getElementById("first-form" );
@@ -226,9 +319,9 @@ buttonSignUpForm.addEventListener("click",signUpFormClicked);
 buttonLogInForm.addEventListener("click",logInFormClicked);
 
 // check localStorage entries
-console.log(getUser("emarinova@gmail.com"));
+console.log(getUser("emarinova@gmail.com"));    //Em1234567*
 console.log(getUser("julian.gyuroff@gmail.com"));
-console.log(getUser("john.d@example.org"));
+console.log(getUser("john.d@example.org"));     //Jdoe1234567*
 console.log(getUser("anna.s@example.org"));
 console.log(getUser("peter.j@example.org"));
 
