@@ -120,7 +120,8 @@ ul {
 
 /* Style the list items */
 ul li {
-border-radius: 10px;
+  border: solid 1px black;
+  border-radius: 10px;
   cursor: pointer;
   position: relative;
   padding: 12px 8px 12px 40px;
@@ -183,10 +184,11 @@ border-radius: 5px;
 
 /* Style the header */
 .header-dash {
-border-radius: 10px;
+  border: solid 1px black;
+  border-radius: 10px;
   background-color: #66ffb0;
   padding: 10px 10px;
-  color: white;
+  color: red;
   text-align: center;
 }
 
@@ -201,7 +203,7 @@ border-radius: 10px;
 .input-dash {
 
   margin: 0;
-  border: none;
+  border: solid 1px black;
   border-radius: 10px;
   width: 85%;
   padding: 10px;
@@ -211,7 +213,7 @@ border-radius: 10px;
 
 /* Style the "Add" button */
 .addBtn {
-
+  border: solid 1px black;
   padding: 10px;
   width: 15%;
   background: #d9d9d9;
@@ -224,7 +226,39 @@ border-radius: 10px;
   border-radius: 10px;
 }
 
-.addBtn:hover {
+/* Style the "Account Settings" button */
+.accSettingsBtn {
+  border: solid 1px black;
+  padding: 10px;
+  width: 60%;
+  background: #d9d9d9;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+}
+
+/* Style the "Log Out" button */
+.logOutBtn {
+  border: solid 1px black;
+  padding: 10px;
+  width: 40%;
+  background: #d9d9d9;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+}
+
+.addBtn:hover ,
+.logOutBtn:hover ,
+.accSettingsBtn:hover{
   background-color: #7cb;
 }
 
