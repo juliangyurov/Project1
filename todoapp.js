@@ -1,5 +1,5 @@
 //unprotected
-// stage = 0 - firstform, 1 - signupform, 2 - loginform, 3 - dashboard, 4 - todolist
+// stage = 0 - firstform, 1 - signupform, 2 - loginform, 3 - dashboard, 4 - todolist, 5 - account settings
 let stage = 0;
 
 function changeStage()  {
@@ -10,6 +10,7 @@ function changeStage()  {
             logInForm.style.display="none";
             dashboardForm.style.display="none";
             toDoForm.style.display="none";
+            accSettingsForm.style.display="none";
             break;
         case 1:
             firstForm.style.display="none";
@@ -17,6 +18,7 @@ function changeStage()  {
             logInForm.style.display="none";
             dashboardForm.style.display="none";
             toDoForm.style.display="none";
+            accSettingsForm.style.display="none";
             break;
         case 2:
             firstForm.style.display="none";
@@ -24,6 +26,7 @@ function changeStage()  {
             logInForm.style.display="block";
             dashboardForm.style.display="none";
             toDoForm.style.display="none";
+            accSettingsForm.style.display="none";
             break;            
         case 3:
             firstForm.style.display="none";
@@ -31,6 +34,7 @@ function changeStage()  {
             logInForm.style.display="none";
             dashboardForm.style.display="block";
             toDoForm.style.display="none";
+            accSettingsForm.style.display="none";
             break;
         case 4:
             firstForm.style.display="none";
@@ -38,13 +42,23 @@ function changeStage()  {
             logInForm.style.display="none";
             dashboardForm.style.display="none";
             toDoForm.style.display="block";
-            break;            
+            accSettingsForm.style.display="none";
+            break; 
+        case 5:
+                firstForm.style.display="none";
+                signUpForm.style.display="none";
+                logInForm.style.display="none";
+                dashboardForm.style.display="none";
+                toDoForm.style.display="none";
+                accSettingsForm.style.display="block";
+                break;                                 
         default:
             firstForm.style.display="block";
             signUpForm.style.display="none";
             logInForm.style.display="none";
             dashboardForm.style.display="none";
-            toDoForm.style.display="none";        
+            toDoForm.style.display="none";  
+            accSettingsForm.style.display="none";      
     }
     console.log("stage=" + stage);
     };
@@ -114,6 +128,12 @@ function changeStage()  {
         addUser(fname.value,lname.value,email.value,password.value);
         console.log(getUser(email.value));
 
+        // Logged user data
+        lufname=fname.value;
+        lulname=lname.value;
+        luemail=email.value;
+        lupassword=password.value;
+
         // go to dashboard - todo lists
         stage = 3;
         changeStage();
@@ -129,6 +149,7 @@ function changeStage()  {
         const email1 = document.getElementById("email1");
         const password1 = document.getElementById("password1");
         const header1 = document.getElementById("headerLogin");
+        
 
         let errCnt = 0;
         let semicolon = "";
@@ -165,6 +186,14 @@ function changeStage()  {
         
         // No errors - proceed to dashboard (todo lists)
 
+        // Logged user data
+        let objUser = getUser(email1.value);
+        lufname = objUser.firstName;
+        lulname = objUser.lastName;
+        luemail = email1.value;
+        lupassword = objUser.password;
+        //console.log(lufname + " " + lulname + " "+ luemail);
+
         stage = 3;
         changeStage();
 
@@ -191,6 +220,10 @@ function addUser(fname,lname,email,password){
         console.error(e);
     };
     
+};
+
+function removeUser(email){
+    localStorage.removeItem(email);
 };
 
 function getUser(email){
@@ -279,7 +312,7 @@ function newElement() {
   var t = document.createTextNode(inputValue);
   li.appendChild(t);
   if (inputValue === '') {
-    alert("You must write something!");
+    alert("You must enter something!");
   } else {
     document.getElementById("myUL").appendChild(li);
   }
@@ -299,29 +332,64 @@ function newElement() {
   }
 }
 
+function logOut(){
+    stage = 0;
+    changeStage();
+}
+
+function changeAccSettings(){
+    // display/edit account settings
+    const asfname = document.getElementById("asfname");
+    const aslname = document.getElementById("aslname");
+    const asemail = document.getElementById("asemail");
+    const aspassword = document.getElementById("aspassword");
+    const asrepassword = document.getElementById("asrepassword");
+    asfname.value=lufname;
+    aslname.value=lulname;
+    asemail.value=luemail;
+    aspassword.value="012345678912";        //dummy password
+    asrepassword.value="012345678912";      
+
+    stage = 5;
+    changeStage();
+
+}
+
 
 // init
+// show/hide form variables
 let firstForm = document.getElementById("first-form" );
 let signUpForm = document.getElementById("signup-form" );
 let logInForm = document.getElementById("login-form" );
 let dashboardForm = document.getElementById("dashboard-form" );
 let toDoForm = document.getElementById("todo-form" );
+let accSettingsForm = document.getElementById("account-settings-form" );
 
+// button elements
 let buttonSignUp = document.getElementById("signup");
 let buttonLogIn = document.getElementById("login");
 let buttonSignUpForm = document.getElementById("signupform");
 let buttonLogInForm = document.getElementById("loginform");
+let buttonAccSettingsForm = document.getElementById("accsettingsform");
 
 // add event listeners
 buttonSignUp.addEventListener("click",signUpClicked);
 buttonLogIn.addEventListener("click",logInClicked);
 buttonSignUpForm.addEventListener("click",signUpFormClicked);
 buttonLogInForm.addEventListener("click",logInFormClicked);
+buttonAccSettingsForm.addEventListener("click",changeAccSettings);
+
+// logged user data
+let lufname,lulname,luemail,lupassword;
+
+// remove users
+removeUser("john.d@example.org");
+removeUser("anna.s@example.org");
 
 // check localStorage entries
 console.log(getUser("emarinova@gmail.com"));    //Em1234567*
 console.log(getUser("julian.gyuroff@gmail.com"));
-console.log(getUser("john.d@example.org"));     //Jdoe1234567*
-console.log(getUser("anna.s@example.org"));
+console.log(getUser("john.d@example.org"));     //Jd1234567*
+console.log(getUser("anna.s@example.org"));     //1
 console.log(getUser("peter.j@example.org"));
 
