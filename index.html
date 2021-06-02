@@ -7,7 +7,7 @@
 
     <body >
         <div class="center vertical-center">
-          <h1>TO-DO LIST</h1>
+          <h1>TO-DO LIST MAGUS</h1>
           <h2>list of things that need to get done</h2>
 
           <p class="p-hidden"></p>
@@ -50,6 +50,34 @@
             </form>
           </div>
 
+          <div id="account-settings-form" style="display: none;">
+            <form >
+                <h2 id="headerAccSettings">Account Settings:</h2>
+                <br>
+
+                <label for="asfname">First name:</label><br>              
+                <input type="text" id="asfname" name="fname" size="30"><br><br>
+                
+                <label for="aslname">Last name:</label><br>
+                <input type="text" id="aslname" name="lname" size="30"><br><br>
+                
+                <label for="asemail">Email:</label><br>                              
+                <input type="text" id="asemail" name="email" size="30"><br><br>
+                
+                <label for="aspassword">Password:</label><br>
+                <input type="password" id="aspassword" name="password" size="30"><br><br>
+                
+                <label for="asrepassword">ReEnter Password:</label><br>
+                <input type="password" id="asrepassword" name="password" size="30"><br><br>               
+                
+                <div>
+                    <button id="accsettingsform" type="button" class="button">Save</button>
+                    <button id="accsettingscancel" type="button" class="button">Cancel</button>
+                </div>
+
+            </form>
+          </div>
+
           <div id="login-form" style="display: none;">
             <form >
                 <h2 id="headerLogin" >Please complete all information below:</h2>
@@ -73,10 +101,12 @@
                 <br>
 
                 <div id="myDIV" class="header-dash">
-                    <h2 style="margin:5px">My To Do List</h2>
+                    <h3 style="margin:5px">My To Do Lists</h3>
                     <input class="input-dash" type="text" id="myInput" placeholder="Enter list item ...">
                     <span onclick="newElement()" class="addBtn">Add</span>
-                </div>
+                    <span onclick="changeAccSettings()" class="accSettingsBtn">Account Settings</span>
+                    <span onclick="logOut()" class="logOutBtn">Log Out</span>
+                </div><br>
 
                 <ul id="myUL">
                     <li>Hit the gym</li>
