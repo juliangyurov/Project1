@@ -370,14 +370,16 @@ let buttonSignUp = document.getElementById("signup");
 let buttonLogIn = document.getElementById("login");
 let buttonSignUpForm = document.getElementById("signupform");
 let buttonLogInForm = document.getElementById("loginform");
-let buttonAccSettingsForm = document.getElementById("accsettingsform");
+let buttonAccSettings = document.getElementById("accSettingsBtn");
+let buttonLogOut = document.getElementById("logOutBtn");
 
 // add event listeners
 buttonSignUp.addEventListener("click",signUpClicked);
 buttonLogIn.addEventListener("click",logInClicked);
 buttonSignUpForm.addEventListener("click",signUpFormClicked);
 buttonLogInForm.addEventListener("click",logInFormClicked);
-buttonAccSettingsForm.addEventListener("click",changeAccSettings);
+buttonAccSettings.addEventListener("click",changeAccSettings);
+buttonLogOut.addEventListener("click",logOut);
 
 // logged user data
 let lufname,lulname,luemail,lupassword;
