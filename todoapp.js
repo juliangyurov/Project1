@@ -222,6 +222,27 @@ function addUser(fname,lname,email,password){
     
 };
 
+function changeUser(fname,lname,email,password){
+    // // Check if user already created
+    // if(getUser(email) !== -1) {
+    //     return -1;
+    // };
+
+    // lists are deleted !!!
+    const objUser = {
+                        "firstName": fname ,
+                        "lastName": lname ,
+                        "password": password ,
+                        "todolists": [] 
+                    };
+    try{
+        localStorage.setItem(email,JSON.stringify(objUser));
+    }catch(e){
+        console.error(e);
+    };
+    
+};
+
 function removeUser(email){
     localStorage.removeItem(email);
 };
@@ -348,13 +369,35 @@ function changeAccSettings(){
     aslname.value=lulname;
     asemail.value=luemail;
     aspassword.value="012345678912";        //dummy password
-    asrepassword.value="012345678912";      
-
+    asrepassword.value="012345678921"; 
     stage = 5;
-    changeStage();
-
+    changeStage();     
 }
 
+function AccSettingsSave(){
+    const asfname = document.getElementById("asfname");
+    const aslname = document.getElementById("aslname");
+    const asemail = document.getElementById("asemail");
+    const aspassword = document.getElementById("aspassword");
+    const asrepassword = document.getElementById("asrepassword");
+
+    if(aspassword.value === asrepassword.value){
+        changeUser(asfname.value,aslname.value,asemail.value,aspassword.value);
+        lufname = asfname.value;
+        lulname = aslname.value;
+        luemail = asemail.value;
+        lupassword = aspassword.value;
+        
+        stage = 3;
+        changeStage();
+    }
+}
+
+function AccSettingsCancel(){
+ 
+    stage = 3;
+    changeStage();    
+}
 
 // init
 // show/hide form variables
@@ -372,6 +415,8 @@ let buttonSignUpForm = document.getElementById("signupform");
 let buttonLogInForm = document.getElementById("loginform");
 let buttonAccSettings = document.getElementById("accSettingsBtn");
 let buttonLogOut = document.getElementById("logOutBtn");
+let buttonAccSettingsSave = document.getElementById("accsettingssave");
+let buttonAccSettingsCancel = document.getElementById("accsettingscancel");
 
 // add event listeners
 buttonSignUp.addEventListener("click",signUpClicked);
@@ -380,6 +425,8 @@ buttonSignUpForm.addEventListener("click",signUpFormClicked);
 buttonLogInForm.addEventListener("click",logInFormClicked);
 buttonAccSettings.addEventListener("click",changeAccSettings);
 buttonLogOut.addEventListener("click",logOut);
+buttonAccSettingsSave.addEventListener("click",AccSettingsSave);
+buttonAccSettingsCancel.addEventListener("click",AccSettingsCancel);
 
 // logged user data
 let lufname,lulname,luemail,lupassword;
