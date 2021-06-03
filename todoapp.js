@@ -223,10 +223,25 @@ function addUser(fname,lname,email,password){
 };
 
 function changeUser(fname,lname,email,password){
-    // // Check if user already created
-    // if(getUser(email) !== -1) {
-    //     return -1;
-    // };
+
+    //testing data here
+    // let todolistExamp = [ { "listname" : "grocerylist", "items":   [
+    //                                                 {"el": "Bakery and Bread", "checked":false},
+    //                                                 {"el": "Meat and Seafood", "checked":false},
+    //                                                 {"el": "Pasta and Rice", "checked":false},
+    //                                                 {"el": "Dairy, Cheese, and Eggs", "checked":false}
+    //                                                 ]   
+    //                         },
+
+    //                         { "listname" : "apparellist", "items":   [
+    //                                                 {"el": "sweater", "checked":false},
+    //                                                 {"el": "jacket", "checked":false},
+    //                                                 {"el": "jeans", "checked":false},
+    //                                                 {"el": "socks", "checked":false}
+    //                                                 ]   
+    //                         }
+    //                     ]  ;                                                                             
+
 
     // lists are deleted !!!
     const objUser = {
@@ -235,6 +250,8 @@ function changeUser(fname,lname,email,password){
                         "password": password ,
                         "todolists": [] 
                     };
+    objUser.todolists = getUserLists(email);                
+    //objUser.todolists = todolistExamp; //testing data               
     try{
         localStorage.setItem(email,JSON.stringify(objUser));
     }catch(e){
@@ -375,23 +392,51 @@ function changeAccSettings(){
 }
 
 function AccSettingsSave(){
+    
+    let errCnt = 0;
+    let semicolon = "";
+    const header2 = document.getElementById("headerAccSettings");
     const asfname = document.getElementById("asfname");
     const aslname = document.getElementById("aslname");
     const asemail = document.getElementById("asemail");
     const aspassword = document.getElementById("aspassword");
     const asrepassword = document.getElementById("asrepassword");
 
-    if(aspassword.value === asrepassword.value){
-        changeUser(asfname.value,aslname.value,asemail.value,aspassword.value);
-        lufname = asfname.value;
-        lulname = aslname.value;
-        luemail = asemail.value;
-        lupassword = aspassword.value;
+    header2.innerText = "Account Settings:";
+    header2.style.color = "white";
+
+    
+    if(asfname.value.length === 0 || aslname.value.length === 0){
+        header2.innerText+=" missing First or Last name";
+        errCnt++;
+    };
+    if(!validEmail(asemail.value)){
+        semicolon = (errCnt>0)? "; " : " ";
+        header2.innerText+=semicolon +"Email not valid";
+        errCnt++;
+    };
+    if(aspassword.value.length === 0 || asrepassword.value.length === 0 || 
+        aspassword.value !== asrepassword.value){
+            semicolon = (errCnt>0)? "; " : " ";
+            header2.innerText+=semicolon +"Password mismatch ";
+            errCnt++;   
+
+    };
+    if(errCnt>0){
+        header2.style.color = "red";
+        return;
+    };
+
+    // No errors - then change User account Settings in localStorage
+    changeUser(asfname.value,aslname.value,asemail.value,aspassword.value);
+    lufname = asfname.value;
+    lulname = aslname.value;
+    luemail = asemail.value;
+    lupassword = aspassword.value;
         
-        stage = 3;
-        changeStage();
-    }
-}
+    stage = 3;
+    changeStage();
+ }
 
 function AccSettingsCancel(){
  
