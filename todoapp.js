@@ -246,7 +246,6 @@ function changeUser(fname,lname,email,password){
     //                     ]  ;                                                                             
 
 
-    // lists are deleted !!!
     const objUser = {
                         "firstName": fname ,
                         "lastName": lname ,
@@ -309,7 +308,8 @@ function addUserList(email,list){
         };
         objUser = JSON.parse(objUser);
         objUser.todolists.push(list);
-        console.log(objUser); 
+        //console.log(objUser); 
+        localStorage.setItem(email,JSON.stringify(objUser));
     }catch(e){
         console.error(e);
     };
@@ -353,9 +353,6 @@ function addCloseButtonToListElements(){
     }
 }
 
-
-
-
 // Add a "checked" symbol when clicking on a list item
 var list = document.querySelector('ul');
 list.addEventListener('click', function(ev) {
@@ -364,31 +361,42 @@ list.addEventListener('click', function(ev) {
   }
 }, false);
 
-// Create a new list item when clicking on the "Add" button
-function newElement() {
+// Create a new list item when clicking on the "Add" button from DASHBOARD
+function newToDoList() {
   var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
+  var inputValue = document.getElementById("newListNameInput").value;
   var t = document.createTextNode(inputValue);
+  
   li.appendChild(t);
   if (inputValue === '') {
-    alert("You must enter something!");
+      alert("You must enter new To-Do List name!");
   } else {
-    document.getElementById("myUL").appendChild(li);
+    const objList = { "listname" : inputValue, "items": [] };
+    lutodolists.push(objList); // write to logged user variable
+    addUserList(luemail,objList); // write to localStorage
+    document.getElementById("todolistsul").appendChild(li);
   }
-  document.getElementById("myInput").value = "";
+  document.getElementById("newListNameInput").value = "";
+  
+  console.log("Logged User:");
+  console.log(lufname + " " + lulname + " "+ luemail + " "+ lupassword);
+  console.log(lutodolists);
+  console.log("User from localStorage:");
+  console.log(getUser(luemail));
 
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
+  // add Close button
+//   var span = document.createElement("SPAN");
+//   var txt = document.createTextNode("\u00D7");
+//   span.className = "close";
+//   span.appendChild(txt);
+//   li.appendChild(span);
 
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
-    }
-  }
+//   for (i = 0; i < close.length; i++) {
+//     close[i].onclick = function() {
+//       var div = this.parentElement;
+//       div.style.display = "none";
+//     }
+//   }
 }
 
 function logOut(){
@@ -483,6 +491,7 @@ let buttonAccSettings = document.getElementById("accSettingsBtn");
 let buttonLogOut = document.getElementById("logOutBtn");
 let buttonAccSettingsSave = document.getElementById("accsettingssave");
 let buttonAccSettingsCancel = document.getElementById("accsettingscancel");
+let buttonNewTodoList = document.getElementById("newtodolist");
 
 // add event listeners
 buttonSignUp.addEventListener("click",signUpClicked);
@@ -493,6 +502,7 @@ buttonAccSettings.addEventListener("click",changeAccSettings);
 buttonLogOut.addEventListener("click",logOut);
 buttonAccSettingsSave.addEventListener("click",AccSettingsSave);
 buttonAccSettingsCancel.addEventListener("click",AccSettingsCancel);
+buttonNewTodoList.addEventListener("click",newToDoList);
 
 // logged user data
 let lufname,lulname,luemail,lupassword;
