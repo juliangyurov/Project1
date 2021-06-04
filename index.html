@@ -102,55 +102,38 @@
 
                 <div id="myDIV" class="header-dash">
                     <h3 style="margin:5px">My To Do Lists</h3>
-                    <input class="input-dash" type="text" id="newListNameInput" placeholder="Enter list item ...">
+                    <input class="input-dash" type="text" id="newListNameInput" placeholder="Enter new list name ...">
                     <span id="newtodolist" class="addBtn">Add</span>
                     <span id="accSettingsBtn" class="accSettingsBtn">Account Settings</span>
                     <span id="logOutBtn" class="logOutBtn">Log Out</span>
                 </div><br>
 
                 <ul id="todolistsul">
-                    <!--li>Hit the gym</li>
-                    <li class="checked">Pay bills</li>
-                    <li>Meet George</li>
-                    <li>Buy eggs</li>
-                    <li>Read a book</li>
-                    <li>Organize office</li-->
                 </ul>
 
                 <br><br>
                 
-                <!--div>
-                    <button id = "dashboardform" type="button" class="button">Create New</button>
-                </div-->
-
             </form>
 
           </div>          
 
           <div id="todo-form" style="display: none;">
             <form >
-                <h2>Please complete add todo information below:</h2>
+                <h2>TO-DO List: </h2>
                 <br>
 
-                <label for="fname">First name:</label><br>              
-                <input type="text" id="fname" name="fname" size="30"><br><br>
-                
-                <label for="lname">Last name:</label><br>
-                <input type="text" id="lname" name="lname" size="30"><br><br>
-                
-                <label for="email">Email:</label><br>                              
-                <input type="text" id="email" name="email" size="30"><br><br>
-                
-                <label for="password">Password:</label><br>
-                <input type="password" id="password" name="password" size="30"><br><br>
+                <div id="todoDIV" class="header-dash">
+                    <h3 id="h3-listname" style="margin:5px">My To Do List Name Here</h3>
+                    <input class="input-dash" type="text" id="newListItemInput" placeholder="Enter new list item ...">
+                    <span id="newlistitem" class="addBtn">Add</span>
+                    <span id="accSettingsBtn" class="accSettingsBtn">Account Settings</span>
+                    <span id="logOutBtn" class="logOutBtn">Log Out</span>
+                </div><br>
 
-                <input type="checkbox" id="agreement" name="agreement" value="ok">
-                <label for="agreement" style="font-size: small;"> I agree to the Terms of Use</label><br><br>
-                
-                <div>
-                    <button id="todoform" type="button" class="button">Add Item</button>
-                </div>
+                <ul id="todolistul">
+                </ul>
 
+                <br><br>
             </form>
 
           </div>

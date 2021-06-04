@@ -228,22 +228,22 @@ function addUser(fname,lname,email,password){
 function changeUser(fname,lname,email,password){
 
     //testing data here
-    // let todolistExamp = [ { "listname" : "grocerylist", "items":   [
-    //                                                 {"el": "Bakery and Bread", "checked":false},
-    //                                                 {"el": "Meat and Seafood", "checked":false},
-    //                                                 {"el": "Pasta and Rice", "checked":false},
-    //                                                 {"el": "Dairy, Cheese, and Eggs", "checked":false}
-    //                                                 ]   
-    //                         },
+    let todolistExamp = [ { "listname" : "grocerylist", "items":   [
+                                                    {"el": "Bakery and Bread", "checked":false},
+                                                    {"el": "Meat and Seafood", "checked":false},
+                                                    {"el": "Pasta and Rice", "checked":false},
+                                                    {"el": "Dairy, Cheese, and Eggs", "checked":false}
+                                                    ]   
+                            },
 
-    //                         { "listname" : "apparellist", "items":   [
-    //                                                 {"el": "sweater", "checked":false},
-    //                                                 {"el": "jacket", "checked":false},
-    //                                                 {"el": "jeans", "checked":false},
-    //                                                 {"el": "socks", "checked":false}
-    //                                                 ]   
-    //                         }
-    //                     ]  ;                                                                             
+                            { "listname" : "apparellist", "items":   [
+                                                    {"el": "sweater", "checked":false},
+                                                    {"el": "jacket", "checked":false},
+                                                    {"el": "jeans", "checked":false},
+                                                    {"el": "socks", "checked":false}
+                                                    ]   
+                            }
+                        ]  ;                                                                             
 
 
     const objUser = {
@@ -252,8 +252,8 @@ function changeUser(fname,lname,email,password){
                         "password": password ,
                         "todolists": [] 
                     };
-    objUser.todolists = getUserLists(email);                
-    //objUser.todolists = todolistExamp; //testing data               
+    //objUser.todolists = getUserLists(email);                
+    objUser.todolists = todolistExamp; //testing data               
     try{
         localStorage.setItem(email,JSON.stringify(objUser));
     }catch(e){
@@ -320,6 +320,7 @@ function addUserList(email,list){
 function displayTodoLists(UlId){
     const todoListULId = document.getElementById(UlId);
 
+    todoListULId.innerHTML = "";
     for(var list of lutodolists){
         var li = document.createElement("li");
         li.appendChild(document.createTextNode(list.listname));
@@ -354,27 +355,34 @@ function addCloseButtonToListElements(){
 }
 
 // Add a "checked" symbol when clicking on a list item
-var list = document.querySelector('ul');
-list.addEventListener('click', function(ev) {
-  if (ev.target.tagName === 'LI') {
-    ev.target.classList.toggle('checked');
-  }
-}, false);
+// var list = document.querySelector('ul');
+// list.addEventListener('click', function(ev) {
+//   if (ev.target.tagName === 'LI') {
+//     ev.target.classList.toggle('checked');
+//   }
+// }, false);
 
-// Create a new list item when clicking on the "Add" button from DASHBOARD
+// Add a "checked" symbol when clicking on a list item - todo-form
+function toggleLiChecked(ev){
+    if (ev.target.tagName === 'LI') {
+        ev.target.classList.toggle('checked');
+    }    
+}
+
+// Create a new list name when clicking on the "Add" button from DASHBOARD
 function newToDoList() {
-  var li = document.createElement("li");
+  //var li = document.createElement("li");
   var inputValue = document.getElementById("newListNameInput").value;
-  var t = document.createTextNode(inputValue);
+  //var t = document.createTextNode(inputValue);
   
-  li.appendChild(t);
+  //li.appendChild(t);
   if (inputValue === '') {
       alert("You must enter new To-Do List name!");
   } else {
     const objList = { "listname" : inputValue, "items": [] };
     lutodolists.push(objList); // write to logged user variable
     addUserList(luemail,objList); // write to localStorage
-    document.getElementById("todolistsul").appendChild(li);
+    //document.getElementById("todolistsul").appendChild(li);
   }
   document.getElementById("newListNameInput").value = "";
   
@@ -383,6 +391,10 @@ function newToDoList() {
   console.log(lutodolists);
   console.log("User from localStorage:");
   console.log(getUser(luemail));
+
+  document.getElementById("h3-listname").innerText=inputValue;
+  stage = 4;
+  changeStage();
 
   // add Close button
 //   var span = document.createElement("SPAN");
@@ -398,6 +410,45 @@ function newToDoList() {
 //     }
 //   }
 }
+
+// Create a new list item when clicking on the "Add" button from todo-form
+function newListItem() {
+    var li = document.createElement("li");
+    var inputValue = document.getElementById("newListItemInput").value;
+    var t = document.createTextNode(inputValue);
+    
+    li.appendChild(t);
+    if (inputValue === '') {
+        alert("You must enter new To-Do List Item!");
+    } else {
+      const objListItem = { "el" : inputValue, "checked": false };
+
+      lutodolists.push(objList); // write to logged user variable
+      addUserList(luemail,objList); // write to localStorage
+      document.getElementById("todolistsul").appendChild(li);
+    }
+    document.getElementById("newListNameInput").value = "";
+    
+    console.log("Logged User:");
+    console.log(lufname + " " + lulname + " "+ luemail + " "+ lupassword);
+    console.log(lutodolists);
+    console.log("User from localStorage:");
+    console.log(getUser(luemail));
+  
+    // add Close button
+  //   var span = document.createElement("SPAN");
+  //   var txt = document.createTextNode("\u00D7");
+  //   span.className = "close";
+  //   span.appendChild(txt);
+  //   li.appendChild(span);
+  
+  //   for (i = 0; i < close.length; i++) {
+  //     close[i].onclick = function() {
+  //       var div = this.parentElement;
+  //       div.style.display = "none";
+  //     }
+  //   }
+  }
 
 function logOut(){
     stage = 0;
@@ -492,6 +543,7 @@ let buttonLogOut = document.getElementById("logOutBtn");
 let buttonAccSettingsSave = document.getElementById("accsettingssave");
 let buttonAccSettingsCancel = document.getElementById("accsettingscancel");
 let buttonNewTodoList = document.getElementById("newtodolist");
+let buttonNewListItem = document.getElementById("newlistitem");
 
 // add event listeners
 buttonSignUp.addEventListener("click",signUpClicked);
@@ -503,6 +555,8 @@ buttonLogOut.addEventListener("click",logOut);
 buttonAccSettingsSave.addEventListener("click",AccSettingsSave);
 buttonAccSettingsCancel.addEventListener("click",AccSettingsCancel);
 buttonNewTodoList.addEventListener("click",newToDoList);
+buttonNewListItem.addEventListener("click",newListItem);
+toDoForm.addEventListener("click",toggleLiChecked,false);
 
 // logged user data
 let lufname,lulname,luemail,lupassword;
