@@ -133,14 +133,16 @@ function changeStage()  {
         lulname=lname.value;
         luemail=email.value;
         lupassword=password.value;
+        lutodolists = [];
+
+        console.log("SignUpForm Logged User:");
+        console.log(lufname + " " + lulname + " "+ luemail + " "+ lupassword);
+        console.log(lutodolists);
 
         // go to dashboard - todo lists
         stage = 3;
         changeStage();
- 
-        // Testing
-        console.log("Email: "+ email.value);
-        console.log(getUserLists(email.value));       
+   
     };
     
     function logInFormClicked(){
@@ -192,14 +194,15 @@ function changeStage()  {
         lulname = objUser.lastName;
         luemail = email1.value;
         lupassword = objUser.password;
-        //console.log(lufname + " " + lulname + " "+ luemail);
+        lutodolists = objUser.todolists;
 
+        console.log("Logged User:");
+        console.log(lufname + " " + lulname + " "+ luemail + " "+ lupassword);
+        console.log(lutodolists);
+        
         stage = 3;
+        displayTodoLists("todolistsul");
         changeStage();
-
-        // Testing
-        console.log("Email: "+ email1.value);
-        console.log(getUserLists(email1.value));
     };
 
 
@@ -314,26 +317,44 @@ function addUserList(email,list){
 
 // DASHBOARD functions
 
-// Create a "close" button and append it to each list item
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
+function displayTodoLists(UlId){
+    const todoListULId = document.getElementById(UlId);
+
+    for(var list of lutodolists){
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(list.listname));
+        li.setAttribute("id", list.listname); 
+        todoListULId.appendChild(li);
+    }
+
+
 }
 
-// Click on a close button to hide the current list item
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
-  }
+function addCloseButtonToListElements(){
+    // Create a "close" button and append it to each list item
+    var myNodelist = document.getElementsByTagName("LI");
+    var i;
+    for (i = 0; i < myNodelist.length; i++) {
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        myNodelist[i].appendChild(span);
+    }
+
+    // Click on a close button to hide the current list item
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+        var div = this.parentElement;
+        div.style.display = "none";
+        }
+    }
 }
+
+
+
 
 // Add a "checked" symbol when clicking on a list item
 var list = document.querySelector('ul');
@@ -475,6 +496,7 @@ buttonAccSettingsCancel.addEventListener("click",AccSettingsCancel);
 
 // logged user data
 let lufname,lulname,luemail,lupassword;
+let lutodolists = []; 
 
 // remove users
 removeUser("john.d@example.org");
