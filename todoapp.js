@@ -327,8 +327,19 @@ function displayTodoLists(UlId){
         li.setAttribute("id", list.listname); 
         todoListULId.appendChild(li);
     }
+    // add event handlers for LI elements
+    var dashboardLists = todoListULId.getElementsByTagName("LI");
+    var i;
+    for (i = 0; i < dashboardLists.length; i++) {
+        dashboardLists[i].addEventListener("click",displayTodoList);
+    }
+}
 
-
+function displayTodoList(){
+    
+  document.getElementById("h3-listname").innerText=this.id;
+  stage = 4;
+  changeStage();
 }
 
 function addCloseButtonToListElements(){
