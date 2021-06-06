@@ -561,13 +561,21 @@ buttonSignUp.addEventListener("click",signUpClicked);
 buttonLogIn.addEventListener("click",logInClicked);
 buttonSignUpForm.addEventListener("click",signUpFormClicked);
 buttonLogInForm.addEventListener("click",logInFormClicked);
-buttonAccSettings.addEventListener("click",changeAccSettings);
-buttonLogOut.addEventListener("click",logOut);
+//buttonAccSettings.addEventListener("click",changeAccSettings);
+document.querySelectorAll(".accSettingsBtn").forEach(item => {
+  item.addEventListener("click", changeAccSettings)
+});
+//buttonLogOut.addEventListener("click",logOut);
+document.querySelectorAll(".logOutBtn").forEach(item => {
+  item.addEventListener("click", logOut)
+});
+
 buttonAccSettingsSave.addEventListener("click",AccSettingsSave);
 buttonAccSettingsCancel.addEventListener("click",AccSettingsCancel);
 buttonNewTodoList.addEventListener("click",newToDoList);
 buttonNewListItem.addEventListener("click",newListItem);
 toDoForm.addEventListener("click",toggleLiChecked,false);
+
 
 // logged user data
 let lufname,lulname,luemail,lupassword;
