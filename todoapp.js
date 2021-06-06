@@ -318,17 +318,17 @@ function addUserList(email,list){
 // DASHBOARD functions
 
 function displayTodoLists(UlId){
-    const todoListULId = document.getElementById(UlId);
+    const todoListsULId = document.getElementById(UlId);
 
-    todoListULId.innerHTML = "";
+    todoListsULId.innerHTML = "";
     for(var list of lutodolists){
         var li = document.createElement("li");
         li.appendChild(document.createTextNode(list.listname));
         li.setAttribute("id", list.listname); 
-        todoListULId.appendChild(li);
+        todoListsULId.appendChild(li);
     }
     // add event handlers for LI elements
-    var dashboardLists = todoListULId.getElementsByTagName("LI");
+    var dashboardLists = todoListsULId.getElementsByTagName("LI");
     var i;
     for (i = 0; i < dashboardLists.length; i++) {
         dashboardLists[i].addEventListener("click",displayTodoList);
@@ -336,10 +336,24 @@ function displayTodoLists(UlId){
 }
 
 function displayTodoList(){
+    const todoListULId = document.getElementById("todolistul");
+
+    todoListULId.innerHTML = "";
+
+    let serchedList = getUserList(this.id);
+
+    if(serchedList !== -1){
+        for(var item of serchedList.items){
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(item.el));
+            li.setAttribute("id", item.checked); 
+            todoListULId.appendChild(li);
+        }    
+    } 
     
-  document.getElementById("h3-listname").innerText=this.id;
-  stage = 4;
-  changeStage();
+    document.getElementById("h3-listname").innerText=this.id;
+    stage = 4;
+    changeStage();
 }
 
 function addCloseButtonToListElements(){
@@ -533,6 +547,17 @@ function AccSettingsCancel(){
  
     stage = 3;
     changeStage();    
+}
+
+function getUserList(listname){
+    let resList = -1;
+    for(var list of lutodolists){
+        if(list.listname === listname){
+            resList = list;
+            break;
+        }
+    }
+    return resList; 
 }
 
 // init
