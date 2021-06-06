@@ -61,25 +61,24 @@ function changeStage()  {
             accSettingsForm.style.display="none";      
     }
     console.log("stage=" + stage);
-    };
+}
 
-    function signUpClicked(){
+function signUpClicked(){
         stage = 1;
         changeStage();
-    };
+}
     
-    function logInClicked(){
+function logInClicked(){
         stage = 2;
         changeStage();
-    };
+}
 
-    function validEmail(email) 
-    {
+function validEmail(email){
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
-    };
+}
 
-    function signUpFormClicked(){
+function signUpFormClicked(){
         // 1-check sign up data 2-record data 3-go to dashboard form
         const checkBox = document.getElementById("agreement");
         const header = document.getElementById("headerSignUp");
@@ -143,9 +142,9 @@ function changeStage()  {
         stage = 3;
         changeStage();
    
-    };
+}
     
-    function logInFormClicked(){
+function logInFormClicked(){
         // 1st-check log in info 2nd- go to dashboard - todo lists form
 
         const email1 = document.getElementById("email1");
@@ -203,7 +202,7 @@ function changeStage()  {
         stage = 3;
         displayTodoLists("todolistsul");
         changeStage();
-    };
+}
 
 
 function addUser(fname,lname,email,password){
@@ -223,7 +222,7 @@ function addUser(fname,lname,email,password){
         console.error(e);
     };
     
-};
+}
 
 function changeUser(fname,lname,email,password){
 
@@ -260,11 +259,26 @@ function changeUser(fname,lname,email,password){
         console.error(e);
     };
     
-};
+}
+
+function changeUserTodolists(fname,lname,email,password,totdolists){
+    const objUser = {
+                        "firstName": fname ,
+                        "lastName": lname ,
+                        "password": password ,
+                        "todolists": [] 
+                    };
+    objUser.todolists = totdolists;                
+    try{
+        localStorage.setItem(email,JSON.stringify(objUser));
+    }catch(e){
+        console.error(e);
+    };
+}
 
 function removeUser(email){
     localStorage.removeItem(email);
-};
+}
 
 function getUser(email){
     try{
@@ -277,7 +291,7 @@ function getUser(email){
     }catch(e){
         console.error(e);
     };
-};
+}
 
 function getPassword(email){
     var objUser1 = getUser(email);
@@ -285,7 +299,7 @@ function getPassword(email){
         return; //return undefined
     };
     return objUser1.password;
-};
+}
 
 function getUserLists(email){
     try{
@@ -298,7 +312,7 @@ function getUserLists(email){
     }catch(e){
         console.error(e);
     };
-};
+}
 
 function addUserList(email,list){
     try{
@@ -313,7 +327,7 @@ function addUserList(email,list){
     }catch(e){
         console.error(e);
     };
-};
+}
 
 // DASHBOARD functions
 
@@ -340,10 +354,10 @@ function displayTodoList(){
 
     todoListULId.innerHTML = "";
 
-    let serchedList = getUserList(this.id);
+    let searchedList = getUserList(this.id);
 
-    if(serchedList !== -1){
-        for(var item of serchedList.items){
+    if( searchedList !== -1){
+        for(var item of searchedList.items){
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(item.el));
             li.setAttribute("id", item.checked); 
@@ -422,23 +436,24 @@ function newToDoList() {
   changeStage();
 
   // add Close button
-//   var span = document.createElement("SPAN");
-//   var txt = document.createTextNode("\u00D7");
-//   span.className = "close";
-//   span.appendChild(txt);
-//   li.appendChild(span);
+  // var span = document.createElement("SPAN");
+  // var txt = document.createTextNode("\u00D7");
+  // span.className = "close";
+  // span.appendChild(txt);
+  // li.appendChild(span);
 
-//   for (i = 0; i < close.length; i++) {
-//     close[i].onclick = function() {
-//       var div = this.parentElement;
-//       div.style.display = "none";
-//     }
-//   }
+  // for (i = 0; i < close.length; i++) {
+  //   close[i].onclick = function() {
+  //     var div = this.parentElement;
+  //     div.style.display = "none";
+  //   }
+  // }
 }
 
-// Create a new list item when clicking on the "Add" button from todo-form
+// Create a new list item when clicking on the "Add" button from ToDo-Form
 function newListItem() {
     var li = document.createElement("li");
+    var listname = document.getElementById("h3-listname").innerText;
     var inputValue = document.getElementById("newListItemInput").value;
     var t = document.createTextNode(inputValue);
     
@@ -446,13 +461,14 @@ function newListItem() {
     if (inputValue === '') {
         alert("You must enter new To-Do List Item!");
     } else {
-      const objListItem = { "el" : inputValue, "checked": false };
+      //const objListItem = { "el" : inputValue, "checked": false };
+      addElementToUserList(listname,inputValue); // write to localStorage 
 
-      lutodolists.push(objList); // write to logged user variable
-      addUserList(luemail,objList); // write to localStorage
-      document.getElementById("todolistsul").appendChild(li);
+      //lutodolists.push(objList); // write to logged user variable
+      //addUserList(luemail,objList); // write to localStorage
+      document.getElementById("todolistul").appendChild(li);
     }
-    document.getElementById("newListNameInput").value = "";
+    document.getElementById("newListItemInput").value = "";
     
     console.log("Logged User:");
     console.log(lufname + " " + lulname + " "+ luemail + " "+ lupassword);
@@ -473,7 +489,7 @@ function newListItem() {
   //       div.style.display = "none";
   //     }
   //   }
-  }
+}
 
 function logOut(){
     stage = 0;
@@ -541,7 +557,7 @@ function AccSettingsSave(){
         
     stage = 3;
     changeStage();
- }
+}
 
 function AccSettingsCancel(){
  
@@ -558,6 +574,17 @@ function getUserList(listname){
         }
     }
     return resList; 
+}
+
+function addElementToUserList(listname,el){
+    for(var list of lutodolists){
+        if(list.listname === listname){
+            let objListItem = {"el": el, "checked": false};
+            list.items.push(objListItem);
+            changeUserTodolists(lufname,lulname,luemail,lupassword,lutodolists);
+            break;
+        }
+    }
 }
 
 // init
