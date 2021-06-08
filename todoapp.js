@@ -251,8 +251,8 @@ function changeUser(fname,lname,email,password){
                         "password": password ,
                         "todolists": [] 
                     };
-    //objUser.todolists = getUserLists(email);                
-    objUser.todolists = todolistExamp; //testing data               
+    objUser.todolists = getUserLists(email);                
+    //objUser.todolists = todolistExamp; //testing data               
     try{
         localStorage.setItem(email,JSON.stringify(objUser));
     }catch(e){
@@ -364,6 +364,9 @@ function displayTodoList(){
             todoListULId.appendChild(li);
         }    
     } 
+
+    backsavelist = true; // Todo form button text -> back
+    changeTodoFormButton(backsavelist);
     
     document.getElementById("h3-listname").innerText=this.id;
     stage = 4;
@@ -405,6 +408,9 @@ function addCloseButtonToListElements(){
 function toggleLiChecked(ev){
     if (ev.target.tagName === 'LI') {
         ev.target.classList.toggle('checked');
+
+        backsavelist = false; // Todo form button text -> save
+        changeTodoFormButton(backsavelist);
     }    
 }
 
@@ -430,6 +436,9 @@ function newToDoList() {
   console.log(lutodolists);
   console.log("User from localStorage:");
   console.log(getUser(luemail));
+
+  backsavelist = false; // Todo form button text -> save
+  changeTodoFormButton(backsavelist);
 
   document.getElementById("h3-listname").innerText=inputValue;
   stage = 4;
@@ -469,6 +478,9 @@ function newListItem() {
       document.getElementById("todolistul").appendChild(li);
     }
     document.getElementById("newListItemInput").value = "";
+
+    backsavelist = false; // Todo form button text -> save
+    changeTodoFormButton(backsavelist);
     
     console.log("Logged User:");
     console.log(lufname + " " + lulname + " "+ luemail + " "+ lupassword);
@@ -582,9 +594,21 @@ function addElementToUserList(listname,el){
             let objListItem = {"el": el, "checked": false};
             list.items.push(objListItem);
             changeUserTodolists(lufname,lulname,luemail,lupassword,lutodolists);
+            backsavelist = false; // Todo form button text -> save
+            changeTodoFormButton(backsavelist);
             break;
         }
     }
+}
+
+function backOrSaveTodoList(){
+    stage = 3;
+    changeStage();      
+}
+
+function changeTodoFormButton(backorsave){
+    let text = (backorsave)?"Back":"Save";
+    buttonBackOrSaveList.innerText = text;
 }
 
 // init
@@ -607,6 +631,7 @@ let buttonAccSettingsSave = document.getElementById("accsettingssave");
 let buttonAccSettingsCancel = document.getElementById("accsettingscancel");
 let buttonNewTodoList = document.getElementById("newtodolist");
 let buttonNewListItem = document.getElementById("newlistitem");
+let buttonBackOrSaveList = document.getElementById("backsavelist");
 
 // add event listeners
 buttonSignUp.addEventListener("click",signUpClicked);
@@ -626,12 +651,16 @@ buttonAccSettingsSave.addEventListener("click",AccSettingsSave);
 buttonAccSettingsCancel.addEventListener("click",AccSettingsCancel);
 buttonNewTodoList.addEventListener("click",newToDoList);
 buttonNewListItem.addEventListener("click",newListItem);
+buttonBackOrSaveList.addEventListener("click",backOrSaveTodoList);
 toDoForm.addEventListener("click",toggleLiChecked,false);
+
 
 
 // logged user data
 let lufname,lulname,luemail,lupassword;
 let lutodolists = []; 
+//back or savelist status for button on Todo form
+let backsavelist = true; // true -> back button , false -> savelist button
 
 // remove users
 removeUser("john.d@example.org");
