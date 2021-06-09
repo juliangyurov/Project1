@@ -251,8 +251,8 @@ function changeUser(fname,lname,email,password){
                         "password": password ,
                         "todolists": [] 
                     };
-    objUser.todolists = getUserLists(email);                
-    //objUser.todolists = todolistExamp; //testing data               
+    //objUser.todolists = getUserLists(email);                
+    objUser.todolists = todolistExamp; //testing data               
     try{
         localStorage.setItem(email,JSON.stringify(objUser));
     }catch(e){
@@ -611,6 +611,44 @@ function changeTodoFormButton(backorsave){
     buttonBackOrSaveList.innerText = text;
 }
 
+function editTodoListName(ev){
+    const el = ev.target;
+    const input = document.createElement("input");
+    input.setAttribute("value", el.textContent);
+    //input.setAttribute("size", "40em");
+    input.setAttribute("class","input-dash");
+    input.setAttribute("style","margin:5px");
+    el.replaceWith(input);
+  
+    const save = function() {
+        const previous = document.createElement(el.tagName.toLowerCase());
+        previous.onclick = editTodoListName;
+        previous.textContent = input.value;
+        input.replaceWith(previous);
+
+        if (input.value === '' || getUserList(input.value) !== -1) {
+            alert("You must enter new unique To-Do List name!");
+        } else {
+          const objList = { "listname" : input.value, "items": [] };
+          lutodolists.push(objList); // write to logged user variable
+          addUserList(luemail,objList); // write to localStorage
+        }
+
+
+    };
+  
+    /**
+      Defining the callback with `once`, because the element will be gone just after that, 
+      and we don't want any callbacks leftovers take memory. 
+      Next time `H3` turns into `input` this single callback 
+      will be applied again.
+    */
+    input.addEventListener('blur', save, {
+      once: true,
+    });
+    input.focus();
+}
+
 // init
 // show/hide form variables
 let firstForm = document.getElementById("first-form" );
@@ -620,7 +658,7 @@ let dashboardForm = document.getElementById("dashboard-form" );
 let toDoForm = document.getElementById("todo-form" );
 let accSettingsForm = document.getElementById("account-settings-form" );
 
-// button elements
+// button and other elements
 let buttonSignUp = document.getElementById("signup");
 let buttonLogIn = document.getElementById("login");
 let buttonSignUpForm = document.getElementById("signupform");
@@ -632,6 +670,7 @@ let buttonAccSettingsCancel = document.getElementById("accsettingscancel");
 let buttonNewTodoList = document.getElementById("newtodolist");
 let buttonNewListItem = document.getElementById("newlistitem");
 let buttonBackOrSaveList = document.getElementById("backsavelist");
+let editableListName = document.getElementById("h3-listname");
 
 // add event listeners
 buttonSignUp.addEventListener("click",signUpClicked);
@@ -653,6 +692,7 @@ buttonNewTodoList.addEventListener("click",newToDoList);
 buttonNewListItem.addEventListener("click",newListItem);
 buttonBackOrSaveList.addEventListener("click",backOrSaveTodoList);
 toDoForm.addEventListener("click",toggleLiChecked,false);
+editableListName.addEventListener("click",editTodoListName);
 
 
 
