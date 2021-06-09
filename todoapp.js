@@ -140,6 +140,7 @@ function signUpFormClicked(){
 
     // go to dashboard - todo lists
     stage = 3;
+    displayTodoLists("todolistsul");
     changeStage();
    
 }
@@ -568,12 +569,14 @@ function AccSettingsSave(){
     lupassword = aspassword.value;
         
     stage = 3;
+    displayTodoLists("todolistsul");
     changeStage();
 }
 
 function AccSettingsCancel(){
  
     stage = 3;
+    displayTodoLists("todolistsul");
     changeStage();    
 }
 
@@ -603,12 +606,25 @@ function addElementToUserList(listname,el){
 
 function backOrSaveTodoList(){
     stage = 3;
+    displayTodoLists("todolistsul");
     changeStage();      
 }
 
 function changeTodoFormButton(backorsave){
     let text = (backorsave)?"Back":"Save";
     buttonBackOrSaveList.innerText = text;
+}
+
+function renameUserList(oldListName,newListName){
+    for(var list of lutodolists){
+        if(list.listname === oldListName){
+            list.listname = newListName;
+            changeUserTodolists(lufname,lulname,luemail,lupassword,lutodolists);
+            backsavelist = false; // Todo form button text -> save
+            changeTodoFormButton(backsavelist);
+            break;
+        }
+    }
 }
 
 function editTodoListName(ev){
@@ -624,20 +640,11 @@ function editTodoListName(ev){
 
         if (input.value === '' || getUserList(input.value) !== -1) {
             alert("You must enter new unique To-Do List name!");
-            input.replaceWith(previous);
         } else {
-          const objList = { "listname" : input.value, "items": [] };
-          lutodolists.push(objList); // write to logged user variable
-          addUserList(luemail,objList); // write to localStorage
+            renameUserList(previous.innerText,input.value);
+            previous.textContent = input.value;
         }       
-
-        const previous = document.createElement(el.tagName.toLowerCase());
-        previous.onclick = editTodoListName;
-        previous.textContent = input.value;
         input.replaceWith(previous);
-
-
-
     };
   
     /**
