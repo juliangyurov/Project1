@@ -79,129 +79,129 @@ function validEmail(email){
 }
 
 function signUpFormClicked(){
-        // 1-check sign up data 2-record data 3-go to dashboard form
-        const checkBox = document.getElementById("agreement");
-        const header = document.getElementById("headerSignUp");
-        const email = document.getElementById("email");
-        const fname = document.getElementById("fname");
-        const lname = document.getElementById("lname");
-        const password = document.getElementById("password");
+    // 1-check sign up data 2-record data 3-go to dashboard form
+    const checkBox = document.getElementById("agreement");
+    const header = document.getElementById("headerSignUp");
+    const email = document.getElementById("email");
+    const fname = document.getElementById("fname");
+    const lname = document.getElementById("lname");
+    const password = document.getElementById("password");
 
-        let errCnt = 0;
-        let semicolon = "";
+    let errCnt = 0;
+    let semicolon = "";
 
-        header.innerText = "Please complete all information below:";
-        header.style.color = "white";
+    header.innerText = "Please complete all information below:";
+    header.style.color = "white";
 
-        if(fname.value.length === 0 || lname.value.length === 0){
-            header.innerText+=" missing First or Last name";
-            errCnt++;
-        };
-        if(!validEmail(email.value)){
-            semicolon = (errCnt>0)? "; " : " ";
-            header.innerText+=semicolon +"Email not valid";
-            errCnt++;
-        };
-        if(getUser(email.value) !== -1){
-            semicolon = (errCnt>0)? "; " : " ";
-            header.innerText+=semicolon +"Email already exists";
-            errCnt++;
-        };
-        if(password.value.length === 0 ){
-            semicolon = (errCnt>0)? "; " : " ";
-            header.innerText+=semicolon +"Password missing";
-            errCnt++;
-        };
-        if(!checkBox.checked){
-            semicolon = (errCnt>0)? "; " : " ";
-            header.innerText+=semicolon +"Check the agreement checkbox";
-            errCnt++;
-        };
-        
-        if(errCnt>0){
-            header.style.color = "red";
-            return;
-        };
-        
-        // No errors - then add user to localStorage
-        addUser(fname.value,lname.value,email.value,password.value);
-        console.log(getUser(email.value));
+    if(fname.value.length === 0 || lname.value.length === 0){
+        header.innerText+=" missing First or Last name";
+        errCnt++;
+    };
+    if(!validEmail(email.value)){
+        semicolon = (errCnt>0)? "; " : " ";
+        header.innerText+=semicolon +"Email not valid";
+        errCnt++;
+    };
+    if(getUser(email.value) !== -1){
+        semicolon = (errCnt>0)? "; " : " ";
+        header.innerText+=semicolon +"Email already exists";
+        errCnt++;
+    };
+    if(password.value.length === 0 ){
+        semicolon = (errCnt>0)? "; " : " ";
+        header.innerText+=semicolon +"Password missing";
+        errCnt++;
+    };
+    if(!checkBox.checked){
+        semicolon = (errCnt>0)? "; " : " ";
+        header.innerText+=semicolon +"Check the agreement checkbox";
+        errCnt++;
+    };
+    
+    if(errCnt>0){
+        header.style.color = "red";
+        return;
+    };
+    
+    // No errors - then add user to localStorage
+    addUser(fname.value,lname.value,email.value,password.value);
+    console.log(getUser(email.value));
 
-        // Logged user data
-        lufname=fname.value;
-        lulname=lname.value;
-        luemail=email.value;
-        lupassword=password.value;
-        lutodolists = [];
+    // Logged user data
+    lufname=fname.value;
+    lulname=lname.value;
+    luemail=email.value;
+    lupassword=password.value;
+    lutodolists = [];
 
-        console.log("SignUpForm Logged User:");
-        console.log(lufname + " " + lulname + " "+ luemail + " "+ lupassword);
-        console.log(lutodolists);
+    console.log("SignUpForm Logged User:");
+    console.log(lufname + " " + lulname + " "+ luemail + " "+ lupassword);
+    console.log(lutodolists);
 
-        // go to dashboard - todo lists
-        stage = 3;
-        changeStage();
+    // go to dashboard - todo lists
+    stage = 3;
+    changeStage();
    
 }
     
 function logInFormClicked(){
-        // 1st-check log in info 2nd- go to dashboard - todo lists form
+    // 1st-check log in info 2nd- go to dashboard - todo lists form
 
-        const email1 = document.getElementById("email1");
-        const password1 = document.getElementById("password1");
-        const header1 = document.getElementById("headerLogin");
-        
+    const email1 = document.getElementById("email1");
+    const password1 = document.getElementById("password1");
+    const header1 = document.getElementById("headerLogin");
+    
 
-        let errCnt = 0;
-        let semicolon = "";
+    let errCnt = 0;
+    let semicolon = "";
 
-        header1.innerText = "Please complete all information below:";
-        header1.style.color = "white";
+    header1.innerText = "Please complete all information below:";
+    header1.style.color = "white";
 
-        // Answers should not be so detailed in real application !!!
-        // Answers should be ambiguous !!!
-        
-        if(!validEmail(email1.value)){
-            semicolon = (errCnt>0)? "; " : " ";
-            header1.innerText+=semicolon +"Email not valid";
-            errCnt++;
-        }else if(getUser(email1.value) === -1){
-            semicolon = (errCnt>0)? "; " : " ";
-            header1.innerText+=semicolon +"Email not found";
-            errCnt++;
-        }; 
-        if(password1.value.length === 0 ){
-            semicolon = (errCnt>0)? "; " : " ";
-            header1.innerText+=semicolon +"Password missing";
-            errCnt++;
-        }else if(password1.value !== getPassword(email1.value) && errCnt === 0){
-            semicolon = (errCnt>0)? "; " : " ";
-            header1.innerText+=semicolon +"Password does not match";
-            errCnt++;
-        };
-        
-        if(errCnt>0){
-            header1.style.color = "red";
-            return;
-        }; 
-        
-        // No errors - proceed to dashboard (todo lists)
+    // Answers should not be so detailed in real application !!!
+    // Answers should be ambiguous !!!
+    
+    if(!validEmail(email1.value)){
+        semicolon = (errCnt>0)? "; " : " ";
+        header1.innerText+=semicolon +"Email not valid";
+        errCnt++;
+    }else if(getUser(email1.value) === -1){
+        semicolon = (errCnt>0)? "; " : " ";
+        header1.innerText+=semicolon +"Email not found";
+        errCnt++;
+    }; 
+    if(password1.value.length === 0 ){
+        semicolon = (errCnt>0)? "; " : " ";
+        header1.innerText+=semicolon +"Password missing";
+        errCnt++;
+    }else if(password1.value !== getPassword(email1.value) && errCnt === 0){
+        semicolon = (errCnt>0)? "; " : " ";
+        header1.innerText+=semicolon +"Password does not match";
+        errCnt++;
+    };
+    
+    if(errCnt>0){
+        header1.style.color = "red";
+        return;
+    }; 
+    
+    // No errors - proceed to dashboard (todo lists)
 
-        // Logged user data
-        let objUser = getUser(email1.value);
-        lufname = objUser.firstName;
-        lulname = objUser.lastName;
-        luemail = email1.value;
-        lupassword = objUser.password;
-        lutodolists = objUser.todolists;
+    // Logged user data
+    let objUser = getUser(email1.value);
+    lufname = objUser.firstName;
+    lulname = objUser.lastName;
+    luemail = email1.value;
+    lupassword = objUser.password;
+    lutodolists = objUser.todolists;
 
-        console.log("Logged User:");
-        console.log(lufname + " " + lulname + " "+ luemail + " "+ lupassword);
-        console.log(lutodolists);
-        
-        stage = 3;
-        displayTodoLists("todolistsul");
-        changeStage();
+    console.log("Logged User:");
+    console.log(lufname + " " + lulname + " "+ luemail + " "+ lupassword);
+    console.log(lutodolists);
+    
+    stage = 3;
+    displayTodoLists("todolistsul");
+    changeStage();
 }
 
 
@@ -613,26 +613,29 @@ function changeTodoFormButton(backorsave){
 
 function editTodoListName(ev){
     const el = ev.target;
+    const previous = ev.target;
     const input = document.createElement("input");
     input.setAttribute("value", el.textContent);
-    //input.setAttribute("size", "40em");
-    input.setAttribute("class","input-dash");
-    input.setAttribute("style","margin:5px");
+    input.setAttribute("class","input-dash-100");
+    //input.setAttribute("style","margin:5px");
     el.replaceWith(input);
   
     const save = function() {
+
+        if (input.value === '' || getUserList(input.value) !== -1) {
+            alert("You must enter new unique To-Do List name!");
+            input.replaceWith(previous);
+        } else {
+          const objList = { "listname" : input.value, "items": [] };
+          lutodolists.push(objList); // write to logged user variable
+          addUserList(luemail,objList); // write to localStorage
+        }       
+
         const previous = document.createElement(el.tagName.toLowerCase());
         previous.onclick = editTodoListName;
         previous.textContent = input.value;
         input.replaceWith(previous);
 
-        if (input.value === '' || getUserList(input.value) !== -1) {
-            alert("You must enter new unique To-Do List name!");
-        } else {
-          const objList = { "listname" : input.value, "items": [] };
-          lutodolists.push(objList); // write to logged user variable
-          addUserList(luemail,objList); // write to localStorage
-        }
 
 
     };
