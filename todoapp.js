@@ -364,6 +364,9 @@ function displayTodoList(){
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(item.el));
             li.setAttribute("id", item.checked); 
+            if(item.checked === "true"){
+                li.classList.toggle("checked");
+            }  
             todoListULId.appendChild(li);
         }    
     } 
@@ -611,6 +614,12 @@ function addElementToUserList(listname,el){
 }
 
 function backOrSaveTodoList(){
+    // Save to localStorage if items checked status changed
+    if(!backsavelist){
+        var curListName = document.getElementById("h3-listname").innerText;
+        saveTodoList(curListName);
+    }
+
     stage = 3;
     displayTodoLists("todolistsul");
     changeStage();      
@@ -619,6 +628,23 @@ function backOrSaveTodoList(){
 function changeTodoFormButton(backorsave){
     let text = (backorsave)?"Back":"Save";
     buttonBackOrSaveList.innerText = text;
+}
+
+function saveTodoList(listname){
+    for(var list of lutodolists){
+        if(list.listname === listname){
+
+            var ul = document.getElementById("todolistul");
+            var ulItems = ul.getElementsByTagName("li");
+
+            for (var i = 0; i < ulItems.length; ++i) {
+                console.log(ulItems[i].id);
+                list.items[i].checked = ulItems[i].id;
+            }
+
+            changeUserTodolists(lufname,lulname,luemail,lupassword,lutodolists);
+        }
+    }
 }
 
 function renameUserList(oldListName,newListName){
