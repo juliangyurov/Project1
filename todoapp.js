@@ -69,8 +69,10 @@ function signUpClicked(){
 }
     
 function logInClicked(){
-        stage = 2;
-        changeStage();
+    document.getElementById("email1").value="";
+    document.getElementById("password1").value="";
+    stage = 2;
+    changeStage();
 }
 
 function validEmail(email){
@@ -410,6 +412,8 @@ function toggleLiChecked(ev){
     if (ev.target.tagName === 'LI') {
         ev.target.classList.toggle('checked');
 
+        ev.target.setAttribute("id", "true");
+
         backsavelist = false; // Todo form button text -> save
         changeTodoFormButton(backsavelist);
     }    
@@ -442,6 +446,8 @@ function newToDoList() {
   changeTodoFormButton(backsavelist);
 
   document.getElementById("h3-listname").innerText=inputValue;
+  document.getElementById("todolistul").innerHTML = "";
+
   stage = 4;
   changeStage();
 
@@ -641,6 +647,8 @@ function editTodoListName(ev){
         if (input.value === '' || getUserList(input.value) !== -1) {
             alert("You must enter new unique To-Do List name!");
         } else {
+            backsavelist = false; // Todo form button text -> save
+            changeTodoFormButton(backsavelist);
             renameUserList(previous.innerText,input.value);
             previous.textContent = input.value;
         }       
