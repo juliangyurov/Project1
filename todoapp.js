@@ -80,6 +80,20 @@ function validEmail(email){
         return re.test(email);
 }
 
+function hash(str) {
+    var hash = 5381,
+        i    = str.length;
+  
+    while(i) {
+      hash = (hash * 33) ^ str.charCodeAt(--i);
+    }
+  
+    /* JavaScript does bitwise operations (like XOR, above) on 32-bit signed
+     * integers. Since we want the results to be always positive, convert the
+     * signed int to an unsigned by doing an unsigned bitshift. */
+    return hash >>> 0;
+}
+
 function signUpFormClicked(){
     // 1-check sign up data 2-record data 3-go to dashboard form
     const checkBox = document.getElementById("agreement");
@@ -364,7 +378,7 @@ function displayTodoList(){
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(item.el));
             li.setAttribute("id", item.checked); 
-            if(item.checked === "true"){
+            if(item.checked === true){
                 li.classList.toggle("checked");
             }  
             todoListULId.appendChild(li);
@@ -639,7 +653,7 @@ function saveTodoList(listname){
 
             for (var i = 0; i < ulItems.length; ++i) {
                 console.log(ulItems[i].id);
-                list.items[i].checked = ulItems[i].id;
+                list.items[i].checked = (ulItems[i].id === "true")?true:false;
             }
 
             changeUserTodolists(lufname,lulname,luemail,lupassword,lutodolists);
@@ -737,8 +751,6 @@ buttonNewListItem.addEventListener("click",newListItem);
 buttonBackOrSaveList.addEventListener("click",backOrSaveTodoList);
 toDoForm.addEventListener("click",toggleLiChecked,false);
 editableListName.addEventListener("click",editTodoListName);
-
-
 
 // logged user data
 let lufname,lulname,luemail,lupassword;
