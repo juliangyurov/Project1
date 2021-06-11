@@ -69,10 +69,18 @@ function signUpClicked(){
 }
     
 function logInClicked(){
+    const loginheader = document.getElementById("headerLogin");
+    loginheader.innerText = "Please complete all information below:";
+    loginheader.style.color = "white";
     document.getElementById("email1").value="";
     document.getElementById("password1").value="";
     stage = 2;
     changeStage();
+}
+
+function backFromLoginClicked(){
+    stage = 0;
+    changeStage();    
 }
 
 function validEmail(email){
@@ -102,6 +110,7 @@ function signUpFormClicked(){
     const fname = document.getElementById("fname");
     const lname = document.getElementById("lname");
     const password = document.getElementById("password");
+    let passhash = "";
 
     let errCnt = 0;
     let semicolon = "";
@@ -140,18 +149,19 @@ function signUpFormClicked(){
     };
     
     // No errors - then add user to localStorage
-    addUser(fname.value,lname.value,email.value,password.value);
+    passhash = hash(password.value);
+    addUser(fname.value,lname.value,email.value,passhash);
     console.log(getUser(email.value));
 
     // Logged user data
     lufname=fname.value;
     lulname=lname.value;
     luemail=email.value;
-    lupassword=password.value;
+    lupassword=passhash;
     lutodolists = [];
 
     console.log("SignUpForm Logged User:");
-    console.log(lufname + " " + lulname + " "+ luemail + " "+ lupassword);
+    console.log(lufname + " " + lulname + " "+ luemail + " "+ password.value +" " + lupassword);
     console.log(lutodolists);
 
     // go to dashboard - todo lists
@@ -191,7 +201,7 @@ function logInFormClicked(){
         semicolon = (errCnt>0)? "; " : " ";
         header1.innerText+=semicolon +"Password missing";
         errCnt++;
-    }else if(password1.value !== getPassword(email1.value) && errCnt === 0){
+    }else if(hash(password1.value) !== getPassword(email1.value) && errCnt === 0){
         semicolon = (errCnt>0)? "; " : " ";
         header1.innerText+=semicolon +"Password does not match";
         errCnt++;
@@ -268,8 +278,8 @@ function changeUser(fname,lname,email,password){
                         "password": password ,
                         "todolists": [] 
                     };
-    //objUser.todolists = getUserLists(email);                
-    objUser.todolists = todolistExamp; //testing data               
+    objUser.todolists = getUserLists(email);                
+    //objUser.todolists = todolistExamp; //testing data               
     try{
         localStorage.setItem(email,JSON.stringify(objUser));
     }catch(e){
@@ -393,6 +403,7 @@ function displayTodoList(){
     changeStage();
 }
 
+// not used in the moment
 function addCloseButtonToListElements(){
     // Create a "close" button and append it to each list item
     var myNodelist = document.getElementsByTagName("LI");
@@ -415,14 +426,6 @@ function addCloseButtonToListElements(){
         }
     }
 }
-
-// Add a "checked" symbol when clicking on a list item
-// var list = document.querySelector('ul');
-// list.addEventListener('click', function(ev) {
-//   if (ev.target.tagName === 'LI') {
-//     ev.target.classList.toggle('checked');
-//   }
-// }, false);
 
 // Add a "checked" symbol when clicking on a list item - todo-form
 function toggleLiChecked(ev){
@@ -467,20 +470,6 @@ function newToDoList() {
 
   stage = 4;
   changeStage();
-
-  // add Close button
-  // var span = document.createElement("SPAN");
-  // var txt = document.createTextNode("\u00D7");
-  // span.className = "close";
-  // span.appendChild(txt);
-  // li.appendChild(span);
-
-  // for (i = 0; i < close.length; i++) {
-  //   close[i].onclick = function() {
-  //     var div = this.parentElement;
-  //     div.style.display = "none";
-  //   }
-  // }
 }
 
 // Create a new list item when clicking on the "Add" button from ToDo-Form
@@ -489,8 +478,8 @@ function newListItem() {
     var listname = document.getElementById("h3-listname").innerText;
     var inputValue = document.getElementById("newListItemInput").value;
     var t = document.createTextNode(inputValue);
-    
     li.appendChild(t);
+
     if (inputValue === '') {
         alert("You must enter new To-Do List Item!");
     } else {
@@ -585,11 +574,12 @@ function AccSettingsSave(){
     };
 
     // No errors - then change User account Settings in localStorage
-    changeUser(asfname.value,aslname.value,asemail.value,aspassword.value);
+    let hashpass1 = hash(aspassword.value);
+    changeUser(asfname.value,aslname.value,asemail.value,hashpass1);
     lufname = asfname.value;
     lulname = aslname.value;
     luemail = asemail.value;
-    lupassword = aspassword.value;
+    lupassword = hashpass1;
         
     stage = 3;
     displayTodoLists("todolistsul");
@@ -625,6 +615,11 @@ function addElementToUserList(listname,el){
             break;
         }
     }
+}
+
+function newButtonText(){
+    backsavelist = false; // Todo form button text -> save
+    changeTodoFormButton(backsavelist);
 }
 
 function backOrSaveTodoList(){
@@ -673,12 +668,14 @@ function renameUserList(oldListName,newListName){
     }
 }
 
+// header => input => new header
 function editTodoListName(ev){
     const el = ev.target;
     const previous = ev.target;
     const input = document.createElement("input");
     input.setAttribute("value", el.textContent);
     input.setAttribute("class","input-dash-100");
+    input.addEventListener("keyup",newButtonText); // change button to save on keyup
     //input.setAttribute("style","margin:5px");
     el.replaceWith(input);
   
@@ -729,6 +726,7 @@ let buttonNewTodoList = document.getElementById("newtodolist");
 let buttonNewListItem = document.getElementById("newlistitem");
 let buttonBackOrSaveList = document.getElementById("backsavelist");
 let editableListName = document.getElementById("h3-listname");
+let buttonBackFromLogin = document.getElementById("backfromlogin");
 
 // add event listeners
 buttonSignUp.addEventListener("click",signUpClicked);
@@ -751,6 +749,7 @@ buttonNewListItem.addEventListener("click",newListItem);
 buttonBackOrSaveList.addEventListener("click",backOrSaveTodoList);
 toDoForm.addEventListener("click",toggleLiChecked,false);
 editableListName.addEventListener("click",editTodoListName);
+buttonBackFromLogin.addEventListener("click",backFromLoginClicked);
 
 // logged user data
 let lufname,lulname,luemail,lupassword;
@@ -759,8 +758,9 @@ let lutodolists = [];
 let backsavelist = true; // true -> back button , false -> savelist button
 
 // remove users
-removeUser("john.d@example.org");
-removeUser("anna.s@example.org");
+//removeUser("emarinova@gmail.com");
+//removeUser("john.d@example.org");
+//removeUser("anna.s@example.org");
 
 // check localStorage entries
 console.log(getUser("emarinova@gmail.com"));    //Em1234567*
